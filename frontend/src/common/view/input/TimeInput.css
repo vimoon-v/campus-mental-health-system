@@ -10,11 +10,11 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 4px;
-    color: #333;
+    color: var(--color-text);
 }
 
 .time-input-required {
-    color: #ff4d4f;
+    color: var(--color-danger);
     margin-left: 4px;
 }
 
@@ -23,48 +23,48 @@
     display: flex;
     align-items: center;
     width: 100%;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-    background-color: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background-color: var(--color-surface);
     transition: all 0.3s;
     cursor: pointer;
 }
 
 .time-input-trigger:hover:not(.time-input-container--disabled):not(.time-input-container--readonly) {
-    border-color: #40a9ff;
+    border-color: var(--color-accent);
 }
 
 .time-input-container--focused .time-input-trigger {
-    border-color: #1890ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.18);
 }
 
 .time-input-container--error .time-input-trigger {
-    border-color: #ff4d4f;
+    border-color: var(--color-danger);
 }
 
 .time-input-container--error .time-input-trigger:hover {
-    border-color: #ff7875;
+    border-color: #e76868;
 }
 
 .time-input-container--error.time-input-container--focused .time-input-trigger {
-    border-color: #ff4d4f;
-    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px rgba(216, 76, 76, 0.2);
 }
 
 .time-input-container--disabled .time-input-trigger {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
     cursor: not-allowed;
 }
 
 .time-input-container--disabled .time-input-trigger:hover {
-    border-color: #d9d9d9;
+    border-color: var(--color-border);
 }
 
 .time-input-container--readonly .time-input-trigger {
-    background-color: #fafafa;
-    border-color: #e8e8e8;
+    background-color: var(--color-bg-soft);
+    border-color: var(--color-border);
     cursor: default;
 }
 
@@ -75,21 +75,21 @@
     outline: none;
     font-size: 14px;
     background: transparent;
-    color: #333;
+    color: var(--color-text);
     cursor: pointer;
 }
 
 .time-input-element::placeholder {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 .time-input-container--disabled .time-input-element {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
     cursor: not-allowed;
 }
 
 .time-input-container--readonly .time-input-element {
-    color: #666;
+    color: var(--color-muted);
     cursor: default;
 }
 
@@ -97,7 +97,7 @@
     display: flex;
     align-items: center;
     padding: 0 12px;
-    color: #8c8c8c;
+    color: var(--color-muted);
 }
 
 .time-input-icon {
@@ -112,10 +112,10 @@
     left: 0;
     width: 100%;
     margin-top: 4px;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
     z-index: 1000;
 }
 
@@ -140,8 +140,8 @@
     text-align: center;
     font-size: 12px;
     font-weight: 500;
-    color: #8c8c8c;
-    border-bottom: 1px solid #f0f0f0;
+    color: var(--color-muted);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: 8px;
 }
 
@@ -161,37 +161,37 @@
 }
 
 .time-input-option:hover:not(.time-input-option--disabled) {
-    background-color: #f5f5f5;
+    background-color: rgba(31, 107, 110, 0.08);
 }
 
 .time-input-option--selected {
-    background-color: #e6f7ff;
-    color: #1890ff;
+    background-color: var(--color-accent-3);
+    color: var(--color-accent);
     font-weight: 500;
 }
 
 .time-input-option--selected:hover {
-    background-color: #bae7ff;
+    background-color: rgba(31, 107, 110, 0.18);
 }
 
 .time-input-option--disabled {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.35);
     cursor: not-allowed;
 }
 
 .time-input-actions {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--color-border);
     padding-top: 12px;
 }
 
 .time-input-now,
 .time-input-clear {
     padding: 6px 12px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
     font-size: 12px;
     cursor: pointer;
     transition: all 0.2s;
@@ -199,20 +199,20 @@
 
 .time-input-now:hover,
 .time-input-clear:hover {
-    border-color: #1890ff;
-    color: #1890ff;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .time-input-now:active,
 .time-input-clear:active {
-    border-color: #096dd9;
-    color: #096dd9;
+    border-color: #195b5e;
+    color: #195b5e;
 }
 
 .time-input-error {
     margin-top: 4px;
     font-size: 12px;
-    color: #ff4d4f;
+    color: var(--color-danger);
     line-height: 1.5;
 }
 
@@ -222,15 +222,15 @@
 }
 
 .time-input-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #e6ded2;
     border-radius: 3px;
 }
 
 .time-input-list::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: #cbbfb2;
     border-radius: 3px;
 }
 
 .time-input-list::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: #b8aa9d;
 }

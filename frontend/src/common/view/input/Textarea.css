@@ -10,11 +10,11 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 4px;
-    color: #333;
+    color: var(--color-text);
 }
 
 .textarea-required {
-    color: #ff4d4f;
+    color: var(--color-danger);
     margin-left: 4px;
 }
 
@@ -27,58 +27,58 @@
 .textarea-element {
     min-height: 80px;
     padding: 8px 12px;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
     font-family: inherit;
     font-size: 14px;
     line-height: 1.5;
-    color: #333;
-    background-color: #fff;
+    color: var(--color-text);
+    background-color: var(--color-surface);
     transition: all 0.3s;
     outline: none;
 }
 
 .textarea-element::placeholder {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 .textarea-element:hover:not(:disabled):not(.textarea-container--readonly) {
-    border-color: #40a9ff;
+    border-color: var(--color-accent);
 }
 
 .textarea-container--focused .textarea-element {
-    border-color: #1890ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.18);
 }
 
 .textarea-container--error .textarea-element {
-    border-color: #ff4d4f;
+    border-color: var(--color-danger);
 }
 
 .textarea-container--error .textarea-element:hover {
-    border-color: #ff7875;
+    border-color: #e76868;
 }
 
 .textarea-container--error.textarea-container--focused .textarea-element {
-    border-color: #ff4d4f;
-    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px rgba(216, 76, 76, 0.2);
 }
 
 .textarea-container--disabled .textarea-element {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
-    color: #bfbfbf;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
+    color: rgba(31, 36, 38, 0.4);
     cursor: not-allowed;
 }
 
 .textarea-container--disabled .textarea-element:hover {
-    border-color: #d9d9d9;
+    border-color: var(--color-border);
 }
 
 .textarea-container--readonly .textarea-element {
-    background-color: #fafafa;
-    border-color: #e8e8e8;
-    color: #666;
+    background-color: var(--color-bg-soft);
+    border-color: var(--color-border);
+    color: var(--color-muted);
 }
 
 .textarea-hidden {
@@ -96,20 +96,20 @@
     bottom: 8px;
     right: 12px;
     font-size: 12px;
-    color: #8c8c8c;
-    background-color: #fff;
+    color: var(--color-muted);
+    background-color: var(--color-surface);
     padding: 0 4px;
     line-height: 1.5;
 }
 
 .textarea-count--error {
-    color: #ff4d4f;
+    color: var(--color-danger);
 }
 
 .textarea-error {
     margin-top: 4px;
     font-size: 12px;
-    color: #ff4d4f;
+    color: var(--color-danger);
     line-height: 1.5;
 }
 

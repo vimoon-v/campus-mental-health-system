@@ -48,7 +48,7 @@ SELECT `appointment_id`,
        `stu`.`name` AS `student_name`,
        `teacher_username`,
        `tea`.`name` AS `teacher_name`,
-       `appointment`.`description`,`start_time`,`end_time`,`apply_time`,`status`
+       `appointment`.`description`,`appointment_type`,`start_time`,`end_time`,`apply_time`,`status`
 FROM `appointment`
          LEFT JOIN `user` AS `stu` ON `appointment`.`student_username` = `stu`.`username`
          LEFT JOIN `user` AS `tea` ON `appointment`.`teacher_username` = `tea`.`username`

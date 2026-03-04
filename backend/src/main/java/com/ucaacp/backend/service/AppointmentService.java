@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -37,12 +39,34 @@ public class AppointmentService {
         return appointmentRepository.findAppointmentDTOsByTeacherUsernameNonPending(TeacherUsername);
     }
 
-    public int handle(Integer appointmentId, AppointmentStatus appointmentStatus) {
-        return appointmentRepository.handle(appointmentId, appointmentStatus);
+    public int handle(
+            Integer appointmentId,
+            AppointmentStatus appointmentStatus,
+            String rejectReason,
+            LocalDateTime acceptTime,
+            Boolean reschedulePending
+    ) {
+        return appointmentRepository.handle(appointmentId, appointmentStatus, rejectReason, acceptTime, reschedulePending);
+    }
+
+    public Optional<Appointment> findById(Integer appointmentId) {
+        return appointmentRepository.findById(appointmentId);
     }
 
     public List<AppointmentDTO> findAllAppointmentDTO(){
         return appointmentRepository.findAllAppointmentDTO();
+    }
+
+    public int markOverdueWaiting(LocalDateTime deadline) {
+        return appointmentRepository.markOverdueWaiting(deadline);
+    }
+
+    public int clearInvalidOverdueFlag() {
+        return appointmentRepository.clearInvalidOverdueFlag();
+    }
+
+    public List<Appointment> findFlaggedOverdueWaitingAppointments() {
+        return appointmentRepository.findFlaggedOverdueWaitingAppointments();
     }
 
 

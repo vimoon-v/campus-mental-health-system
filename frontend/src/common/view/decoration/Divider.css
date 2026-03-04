@@ -16,7 +16,7 @@
 
 .divider-text {
     flex-shrink: 0;
-    color: #666;
+    color: var(--color-muted);
     font-size: 14px;
     white-space: nowrap;
 }

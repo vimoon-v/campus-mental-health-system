@@ -12,18 +12,45 @@ export interface PostRequest {
     username: string;
     isAnonymous: boolean;
     isPublic: boolean;
+    primaryTag?: string;
+    needReply?: boolean;
+    allowComment?: boolean;
+    showInRecommend?: boolean;
+    anonymousLike?: boolean;
 }
 
 export interface ReplyRequest {
     postId:number;
     content:string;
     username:string;
+    parentReplyId?:number|null;
 }
 
 export interface PostReportRequest {
     postId:number;
+    reportType:string;
     reportReason:string;
-    reporterUsername:string;
+    reporterUsername?:string;
+}
+
+export interface PostLikeToggleRequest {
+    postId:number;
+    username:string;
+}
+
+export interface PostLikeToggleResponse {
+    liked:boolean;
+    likeCount:number;
+}
+
+export interface PostFavoriteToggleRequest {
+    postId:number;
+    username:string;
+}
+
+export interface PostFavoriteToggleResponse {
+    favorited:boolean;
+    favoriteCount:number;
 }
 
 
@@ -36,6 +63,10 @@ export class PostController extends Controller{
     reply=this._post<ReplyRequest,any>("api/post/reply");
     //获取所有公开发帖
     getAllPublicPost=this._get<null,PostDTO[]>("api/post/all_public_post");
+    //获取当前用户发布的帖子
+    getMyPosts=this._get<null,PostDTO[]>("api/post/my_posts");
+    //获取当前用户收藏的帖子
+    getMyFavoritePosts=this._get<null,PostDTO[]>("api/post/my_favorite_posts");
     //获取被举报的发帖
     getAllReportedPost=this._get<null,PostDTO[]>("api/post/all_reported_post");
     //获取某一帖子下的所有回复
@@ -50,4 +81,8 @@ export class PostController extends Controller{
     deleteReply=this._post<{replyId:number},any>("api/post/delete_reply");
     //删除举报
     deleteReport=this._post<{reportId:number},any>("api/post/delete_report");
+    //点赞/取消点赞
+    toggleLike=this._post<PostLikeToggleRequest,PostLikeToggleResponse>("api/post/toggle_like");
+    //收藏/取消收藏
+    toggleFavorite=this._post<PostFavoriteToggleRequest,PostFavoriteToggleResponse>("api/post/toggle_favorite");
 }

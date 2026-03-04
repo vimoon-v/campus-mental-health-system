@@ -112,6 +112,7 @@ export const ReportView: React.FC<ReportViewProps> = ({postReport,onDeleteReport
             {confirmDialog}
             {deleteReportResultDialog}
             <div className="reply-content">
+                <p><strong>类型：</strong>{postReport.reportType || "其他"}</p>
                 <p>{postReport.reportReason}</p>
             </div>
             <div className="reply-meta">

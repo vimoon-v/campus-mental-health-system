@@ -49,8 +49,8 @@ public class CheckUserRoleInterceptor implements HandlerInterceptor {
         }
 
         boolean flag = false;
-        for(UserRole userRole : checkUserRole.value()){
-            if(user.getRole().equals(userRole)){
+        for(UserRole requiredRole : checkUserRole.value()){
+            if(hasRole(user.getRole(), requiredRole)){
                 flag = true;
                 break;
             }
@@ -67,5 +67,16 @@ public class CheckUserRoleInterceptor implements HandlerInterceptor {
         }
 
         return true;
+    }
+
+    private boolean hasRole(UserRole currentRole, UserRole requiredRole) {
+        if (currentRole == null || requiredRole == null) {
+            return false;
+        }
+        if (currentRole.equals(requiredRole)) {
+            return true;
+        }
+        // 平台管理员默认拥有学校管理员权限
+        return currentRole == UserRole.SYSTEM_ADMIN && requiredRole == UserRole.ADMIN;
     }
 }

@@ -6,14 +6,25 @@ import {PsychKnowledgeReport} from "../entity/PsychKnowledgeReport";
 
 export interface PsychKnowledgeReportRequest {
     knowledgeId:number;
+    reportType:string;
     reportReason:string;
-    reporterUsername:string;
+    reporterUsername?:string;
 }
 
 export interface PsychKnowledgePostRequest {
-    title:string;
-    content:string;
+    knowledgeId?:number;
+    title?:string;
+    content?:string;
+    summary?:string|null;
+    tags?:string[];
+    coverImage?:string|null;
+    publishStatus?:string;
+    scheduleTime?:string;
+    visibleRange?:string;
+    allowComment?:boolean;
+    recommended?:boolean;
     teacherPublisherUsername:string;
+    category?:string;
 }
 
 export interface PsychKnowledgePassRequest{
@@ -24,6 +35,16 @@ export interface PsychKnowledgePassRequest{
 export interface PsychKnowledgeBanRequest{
     knowledgeId:number;
     adminReviewerUsername:string;
+}
+
+export interface PsychKnowledgeLikeToggleRequest {
+    knowledgeId:number;
+    username:string;
+}
+
+export interface PsychKnowledgeLikeToggleResponse {
+    liked:boolean;
+    likeCount:number;
 }
 
 
@@ -39,8 +60,12 @@ export class PsychKnowledgeController extends Controller{
     teacherMine=this._get<{teacherUsername:string},PsychKnowledgeDTO[]>("api/psych_knowledge/teacher/mine");
     //教师提交科普
     teacherPost=this._post<PsychKnowledgePostRequest,any>("api/psych_knowledge/teacher/post");
+    //教师查看自己的科普详情
+    teacherDetail=this._get<{knowledgeId:number, teacherUsername:string},PsychKnowledgeDTO>("api/psych_knowledge/teacher/detail");
     //教师撤回科普
     teacherInvoke=this._post<{knowledgeId:number},any>("api/psych_knowledge/teacher/invoke");
+    //教师删除草稿
+    teacherDeleteDraft=this._post<{knowledgeId:number},any>("api/psych_knowledge/teacher/delete");
     //列出管理员审核的心理知识科普
     adminReviewed=this._get<{adminReviewerUsername:string},any>("api/psych_knowledge/admin/reviewed");
     //管理员通过心理知识科普
@@ -55,4 +80,10 @@ export class PsychKnowledgeController extends Controller{
     listReport=this._get<{knowledgeId:number},PsychKnowledgeReport[]>("api/psych_knowledge/list_report");
     //删除某条举报
     adminReportDelete=this._post<{reportId:number},any>("api/psych_knowledge/admin/report/delete")
+    //增加阅读量
+    incrementView=this._post<{knowledgeId:number},number>("api/psych_knowledge/view");
+    //切换点赞
+    toggleLike=this._post<PsychKnowledgeLikeToggleRequest,PsychKnowledgeLikeToggleResponse>("api/psych_knowledge/toggle_like");
+    //获取科普详情
+    detail=this._get<{knowledgeId:number},PsychKnowledgeDTO>("/api/psych_knowledge/detail");
 }

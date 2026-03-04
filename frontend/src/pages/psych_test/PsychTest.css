@@ -1,53 +1,419 @@
-
-.psych-error-detail{
-    min-height: 400px;
-    font-size: 16px;
-    display: flex;
-    text-align:left;
-}
-
-.psych-test-entry-box{
-    border: 1px solid #c1bfbf;
-    outline: 1px solid #eae8e8;
-    border-radius: 4px; /* 圆角 */
-    padding: 12px 24px;
-    background: transparent; /* 透明背景 */
-    position: relative;
-    transition: all 0.3s ease;
+﻿.psych-test-page {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 200px;
-    margin: 15px;
+    gap: 32px;
+    color: var(--landing-dark);
 }
 
-.psych-test-entry-box .title{
-
+.psych-test-hero {
+    text-align: center;
+    margin-top: 6px;
 }
 
-.psych-test-entry-box .description{
+.psych-test-hero h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.psych-test-hero p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--landing-muted);
+    line-height: 1.7;
+}
+
+.psych-test-filter {
+    background: #fff;
+    border: 1px solid var(--landing-border);
+    border-radius: 18px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.psych-test-filter h3 {
+    font-size: 18px;
+}
+
+.psych-test-category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.psych-test-category-list .category-btn {
+    border: 1px solid var(--landing-border);
+    background: #fff;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--landing-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.psych-test-category-list .category-btn:hover {
+    border-color: rgba(67, 97, 238, 0.4);
+    color: var(--landing-primary);
+}
+
+.psych-test-category-list .category-btn.is-active {
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--landing-primary);
+    border-color: rgba(67, 97, 238, 0.4);
+}
+
+.psych-test-status {
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.psych-test-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.psych-test-section-head h3 {
+    font-size: 22px;
+}
+
+.psych-test-section-link {
+    font-size: 13px;
+    color: var(--landing-muted);
+}
+
+.psych-test-featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 18px;
+}
+
+.psych-test-featured-card {
+    background: #fff;
+    border: 1px solid var(--landing-border);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-card-icon {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 54px;
+}
+
+.featured-theme-primary {
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--landing-primary);
+}
+
+.featured-theme-secondary {
+    background: rgba(247, 37, 133, 0.12);
+    color: var(--landing-secondary);
+}
+
+.featured-theme-green {
+    background: #ecfdf3;
+    color: #16a34a;
+}
+
+.featured-card-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.featured-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--landing-muted);
+}
+
+.badge {
+    display: inline-flex;
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--landing-primary);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.participants {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.featured-card-body h4 {
+    font-size: 18px;
+}
+
+.featured-card-body p {
+    color: var(--landing-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.featured-card-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--landing-muted);
+}
+
+.start-test-btn {
+    border: none;
+    background: var(--landing-primary);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 16px rgba(67, 97, 238, 0.2);
+}
+
+.start-test-btn:hover {
+    transform: translateY(-1px);
+}
+
+.psych-test-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.psych-test-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.psych-test-list-card {
+    background: #fff;
+    border: 1px solid var(--landing-border);
+    border-radius: 16px;
+    display: flex;
+    overflow: hidden;
+}
+
+.list-card-icon {
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.list-theme-blue {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3b82f6;
+}
+
+.list-theme-purple {
+    background: rgba(168, 85, 247, 0.12);
+    color: #8b5cf6;
+}
+
+.list-theme-yellow {
+    background: rgba(234, 179, 8, 0.12);
+    color: #ca8a04;
+}
+
+.list-theme-red {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+.list-card-body {
+    flex: 1;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.list-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--landing-muted);
+}
+
+.list-card-body h4 {
     font-size: 16px;
-    color: #6c7481;
-    text-align: left;
-    flex-grow: 1;
+    margin: 0;
 }
 
-.psych-test-entry-box .questionNumber{
-    font-size: 15px;
-    color: #1f2125;
-    text-align: left;
+.list-card-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--landing-muted);
 }
 
-.psych-test-entry-box .button-box{
-
+.start-test-link {
+    border: none;
+    background: none;
+    color: var(--landing-primary);
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
 }
 
-.psych-test-question-box{
-    border: 1px solid #c1bfbf;
-    outline: 1px solid #eae8e8;
-    border-radius: 4px; /* 圆角 */
+.psych-test-load-more {
+    display: flex;
+    justify-content: center;
+}
+
+.psych-test-load-more button {
+    border: 1px solid var(--landing-border);
+    background: #fff;
+    color: var(--landing-muted);
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.psych-test-load-more button:hover:not(:disabled) {
+    border-color: rgba(67, 97, 238, 0.4);
+    color: var(--landing-primary);
+}
+
+.psych-test-load-more button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.psych-test-records {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.psych-test-record-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.psych-test-record-grid .psych-test-empty {
+    grid-column: 1 / -1;
+}
+
+.psych-test-record-card {
+    background: #fff;
+    border: 1px solid var(--landing-border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.record-header h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.record-sub,
+.record-time {
+    font-size: 12px;
+    color: var(--landing-muted);
+}
+
+.record-report {
+    font-size: 13px;
+    color: var(--landing-muted);
+    line-height: 1.6;
+}
+
+.record-details summary {
+    cursor: pointer;
+    color: var(--landing-primary);
+    font-weight: 600;
+    font-size: 12px;
+    list-style: none;
+}
+
+.record-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.record-details p {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--landing-dark);
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.psych-test-empty {
+    text-align: center;
+    padding: 24px;
+    border: 1px dashed var(--landing-border);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--landing-muted);
+}
+
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+}
+
+.psych-test-question-box {
+    border: 1px solid var(--color-border);
+    outline: 1px solid rgba(0, 0, 0, 0.03);
+    border-radius: 16px;
+    background: var(--color-surface);
     padding: 12px 24px;
-    background: transparent; /* 透明背景 */
     position: relative;
     transition: all 0.3s ease;
     display: flex;
@@ -55,13 +421,57 @@
     width: 800px;
     min-height: 300px;
     margin-left: 30px;
+    box-shadow: var(--shadow-sm);
 }
 
-.psych-test-description{
+.psych-test-description {
     font-size: 16px;
-    color: #6c7481;
+    color: var(--color-muted);
 }
 
-.psych-test-question-key{
-    font-weight: bold;
+@media (max-width: 1200px) {
+    .psych-test-featured-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .psych-test-list {
+        grid-template-columns: 1fr;
+    }
+
+    .psych-test-record-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .psych-test-hero h1 {
+        font-size: 28px;
+    }
+
+    .psych-test-filter {
+        padding: 16px;
+    }
+
+    .psych-test-section-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .psych-test-featured-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .psych-test-list-card {
+        flex-direction: column;
+    }
+
+    .list-card-icon {
+        width: 100%;
+        height: 90px;
+    }
+
+    .psych-test-question-box {
+        width: 100%;
+        margin-left: 0;
+    }
 }

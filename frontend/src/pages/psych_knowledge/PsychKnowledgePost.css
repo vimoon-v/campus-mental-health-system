@@ -1,0 +1,349 @@
+.knowledge-post-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.knowledge-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.knowledge-post-title h2 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--color-text);
+}
+
+.knowledge-post-title p {
+    margin: 6px 0 0;
+    color: var(--color-muted);
+    font-size: 14px;
+}
+
+.knowledge-post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.knowledge-post-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.knowledge-post-main,
+.knowledge-post-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.knowledge-post-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.knowledge-post-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.knowledge-post-required {
+    color: var(--color-danger);
+}
+
+.knowledge-post-input,
+.knowledge-post-textarea,
+.knowledge-post-select {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.knowledge-post-textarea {
+    min-height: 240px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.knowledge-post-textarea.is-summary {
+    min-height: 120px;
+}
+
+.knowledge-post-input:focus,
+.knowledge-post-textarea:focus,
+.knowledge-post-select:focus {
+    outline: none;
+    border-color: rgba(31, 107, 110, 0.6);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.15);
+}
+
+.knowledge-post-input.is-error,
+.knowledge-post-textarea.is-error,
+.knowledge-post-select.is-error {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px rgba(216, 76, 76, 0.12);
+}
+
+.knowledge-post-error {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-danger);
+}
+
+.knowledge-post-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.knowledge-post-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    border: 1px solid var(--color-border);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background: var(--color-bg-soft);
+    padding: 8px;
+}
+
+.knowledge-post-toolbar button {
+    border: none;
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 6px;
+    color: var(--color-muted);
+    cursor: pointer;
+}
+
+.knowledge-post-toolbar button:hover {
+    background: var(--color-surface-2);
+    color: var(--color-accent);
+}
+
+.knowledge-post-divider {
+    width: 1px;
+    background: var(--color-border);
+    margin: 0 4px;
+}
+
+.knowledge-post-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.knowledge-post-meta .is-warning {
+    color: var(--color-danger);
+    font-weight: 600;
+}
+
+.knowledge-post-tag-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.knowledge-post-tag-input button {
+    border: none;
+    background: var(--color-surface-2);
+    color: var(--color-accent);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.knowledge-post-tag-suggestions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.knowledge-post-tag-option {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.knowledge-post-tag-option:hover {
+    border-color: rgba(31, 107, 110, 0.45);
+    color: var(--color-accent);
+}
+
+.knowledge-post-tag-option.is-active {
+    border-color: rgba(31, 107, 110, 0.45);
+    background: rgba(31, 107, 110, 0.12);
+    color: var(--color-accent);
+}
+
+.knowledge-post-tags {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.knowledge-post-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(31, 107, 110, 0.12);
+    color: var(--color-accent);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.knowledge-post-tag button {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.knowledge-post-tag-empty {
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.knowledge-post-upload {
+    border: 2px dashed var(--color-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    background: var(--color-bg-soft);
+    position: relative;
+    transition: border-color 0.2s ease;
+}
+
+.knowledge-post-upload input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.knowledge-post-upload:hover {
+    border-color: rgba(31, 107, 110, 0.5);
+}
+
+.knowledge-post-upload-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.knowledge-post-upload-content i {
+    font-size: 28px;
+    color: var(--color-accent);
+}
+
+.knowledge-post-cover-preview {
+    margin-top: 12px;
+}
+
+.knowledge-post-cover-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+}
+
+.knowledge-post-cover-remove {
+    margin-top: 8px;
+    border: none;
+    background: none;
+    color: var(--color-danger);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.knowledge-post-section-title {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.knowledge-post-field {
+    margin-bottom: 12px;
+}
+
+.knowledge-post-radio {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--color-text);
+}
+
+.knowledge-post-radio label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.knowledge-post-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-text);
+}
+
+.knowledge-post-guide {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--color-muted);
+}
+
+.knowledge-post-guide i {
+    color: var(--color-success);
+    margin-right: 6px;
+}
+
+.knowledge-post-footer {
+    display: flex;
+    gap: 12px;
+}
+
+@media (max-width: 1100px) {
+    .knowledge-post-grid {
+        grid-template-columns: 1fr;
+    }
+}

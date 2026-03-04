@@ -8,4 +8,6 @@ import java.util.List;
 public interface PostReportRepository extends JpaRepository<PostReport, Integer> {
 
     public List<PostReport> findByPostId(Integer postId);
+
+    boolean existsByPostIdAndReporterUsername(Integer postId, String reporterUsername);
 }

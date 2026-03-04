@@ -4,5 +4,8 @@ export interface ReplyDTO {
     postId:number;
     displayName:string;
     username:string;
+    avatar?:string|null;
     replyTime:Date;
+    parentReplyId?:number|null;
+    replyToDisplayName?:string|null;
 }

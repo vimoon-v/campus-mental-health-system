@@ -1,22 +1,18 @@
-import React, {useRef, useState} from "react";
+﻿import React, {useRef, useState} from "react";
 import {useOutletContext} from "react-router";
 import {PsychKnowledgeRoot} from "../PsychKnowledgeRootPage";
-import {useNavigate} from "react-router-dom";
 import {PsychKnowledgeController} from "../../../controller/PsychKnowledgeController";
 import {ResponseHandler, ResponseHandlerRef} from "../../../common/response/ResponseHandler";
 import {PsychKnowledgeDTO} from "../../../entity/DTO/PsychKnowledgeDTO";
 import {ResponseState} from "../../../common/response/ResponseState";
 import {PsychKnowledgeCard} from "../../../component/view/PsychKnowledgeCard";
 import {UserRole} from "../../../entity/enums/UserRole";
-import {Button} from "../../../common/view/controller/Button";
 import {Divider} from "../../../common/view/decoration/Divider";
 import {Loading} from "../../../common/view/display/Loading";
 import {ReturnObject} from "../../../common/response/ReturnObject";
 
 export const PsychKnowledgeReportAuditForm:React.FC = () => {
-    const context=useOutletContext<PsychKnowledgeRoot.OutletContext>();
-    const navigate = useNavigate();
-    const psychKnowledgeController=new PsychKnowledgeController();
+    const context=useOutletContext<PsychKnowledgeRoot.OutletContext>();    const psychKnowledgeController=new PsychKnowledgeController();
     const getReportedPsychKnowledgeHandlerRef=useRef<ResponseHandlerRef<null, PsychKnowledgeDTO[]>>(null);
     const [getReportedPsychKnowledgeState,setGetReportedPsychKnowledgeState]=useState<ResponseState<PsychKnowledgeDTO[]>>();
     const PsychKnowledgeCardList=getReportedPsychKnowledgeState?.returnObject?.data?.map(value=><PsychKnowledgeCard
@@ -31,11 +27,7 @@ export const PsychKnowledgeReportAuditForm:React.FC = () => {
         <div className="layout-flex-row">
             <span style={{flexGrow: 1}}></span>
             <h2>审核科普举报</h2>
-            <span style={{flexGrow: 1}}></span>
-            <Button type="default" onClick={() => {
-                navigate("/home/main");
-            }}>返回</Button>
-        </div>
+            <span style={{flexGrow: 1}}></span>        </div>
         <Divider color="Black" spacing="0"/>
         <ResponseHandler<null, PsychKnowledgeDTO[]>
             ref={getReportedPsychKnowledgeHandlerRef}
@@ -44,12 +36,12 @@ export const PsychKnowledgeReportAuditForm:React.FC = () => {
             autoRequest={null}
 
             loadingComponent={<Loading type="dots"
-                                       text='获取心理知识科普中...'
+                                       text='获取心理知识科普�?..'
                                        color="#2196f3"
                                        size="large"
                                        fullScreen/>}
             handlingReturnObjectComponent={<Loading type="dots"
-                                                    text='处理获取心理知识科普结果中...'
+                                                    text='处理获取心理知识科普结果�?..'
                                                     color="#2196f3"
                                                     size="large"
                                                     fullScreen/>}
@@ -69,3 +61,5 @@ export const PsychKnowledgeReportAuditForm:React.FC = () => {
         />
     </div>)
 }
+
+

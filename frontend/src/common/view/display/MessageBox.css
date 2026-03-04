@@ -19,7 +19,7 @@
     padding: 24px 24px 16px;
     font-size: 14px;
     line-height: 1.5;
-    color: #333;
+    color: var(--color-text);
     flex: 1;
     text-align: center;
 }
@@ -36,8 +36,8 @@
 .messagebox-input {
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
     font-size: 14px;
     transition: all 0.3s;
     box-sizing: border-box;
@@ -45,12 +45,12 @@
 
 .messagebox-input:focus {
     outline: none;
-    border-color: #1890ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.18);
 }
 
 .messagebox-input:hover {
-    border-color: #40a9ff;
+    border-color: var(--color-accent);
 }
 
 .messagebox-buttons {
@@ -58,13 +58,13 @@
     justify-content: flex-end;
     padding: 16px 24px 24px;
     gap: 8px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--color-border);
 }
 
 .messagebox-button {
     padding: 8px 16px;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s;
@@ -73,36 +73,37 @@
 }
 
 .messagebox-button.default {
-    background-color: #fff;
-    border-color: #d9d9d9;
-    color: #333;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
 }
 
 .messagebox-button.default:hover {
-    color: #1890ff;
-    border-color: #1890ff;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-3);
 }
 
 .messagebox-button.primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
 }
 
 .messagebox-button.primary:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #2f8f8a;
+    border-color: #2f8f8a;
 }
 
 .messagebox-button.danger {
-    background-color: #ff4d4f;
-    border-color: #ff4d4f;
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
     color: #fff;
 }
 
 .messagebox-button.danger:hover {
-    background-color: #ff7875;
-    border-color: #ff7875;
+    background-color: #e76868;
+    border-color: #e76868;
 }
 
 .messagebox-button:disabled {
@@ -149,19 +150,19 @@
 }
 
 .messagebox-icon.info {
-    color: #1890ff;
+    color: var(--color-info);
 }
 
 .messagebox-icon.success {
-    color: #52c41a;
+    color: var(--color-success);
 }
 
 .messagebox-icon.warning {
-    color: #faad14;
+    color: var(--color-warning);
 }
 
 .messagebox-icon.error {
-    color: #ff4d4f;
+    color: var(--color-danger);
 }
 
 /* 动画效果 */

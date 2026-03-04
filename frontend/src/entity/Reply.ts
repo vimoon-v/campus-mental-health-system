@@ -6,6 +6,7 @@ export interface Reply {
     content:string;
     postId:number;
     username:string;
+    parentReplyId?:number|null;
     replyTime:Date;
 }
 

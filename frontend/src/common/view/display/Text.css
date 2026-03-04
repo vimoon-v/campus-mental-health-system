@@ -76,11 +76,11 @@
 }
 
 .copy-button:hover {
-    background-color: #f0f0f0;
+    background-color: var(--color-accent-3);
 }
 
 .copy-button.copied {
-    color: #4caf50;
+    color: var(--color-success);
 }
 
 /* 完整文本弹出层 */
@@ -98,14 +98,14 @@
 }
 
 .full-text-content {
-    background: white;
+    background: var(--color-surface);
     padding: 20px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     max-width: 80%;
     max-height: 80%;
     overflow: auto;
     position: relative;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .close-button {
@@ -125,7 +125,7 @@
 }
 
 .close-button:hover {
-    background-color: #f0f0f0;
+    background-color: var(--color-accent-3);
 }
 
 .full-text-content pre {
@@ -135,17 +135,17 @@
 }
 
 .copy-button-full {
-    background-color: #007bff;
+    background-color: var(--color-accent);
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .copy-button-full:hover {
-    background-color: #0056b3;
+    background-color: #2f8f8a;
 }
 
 .text-view-label {
@@ -153,5 +153,5 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 4px;
-    color: #333;
+    color: var(--color-text);
 }

@@ -5,8 +5,10 @@ export interface Appointment{
     studentUsername:string;
     teacherUsername:string;
     description:string;
+    anonymous?: boolean;
     startTime:Date;
     endTime:Date;
     applyTime:Date;
+    acceptTime?: Date | null;
     status:AppointmentStatus;
 }

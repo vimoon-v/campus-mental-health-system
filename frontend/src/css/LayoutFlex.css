@@ -2,6 +2,65 @@
 @see https://blog.csdn.net/qq_44537625/article/details/100040169
  */
 
+/* Theme overrides */
+.vertical-menu {
+    background: var(--color-surface) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 16px 0 !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--color-border) !important;
+}
+
+.vertical-menu a {
+    background-color: transparent !important;
+    color: var(--color-text) !important;
+    border-left-color: transparent !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+
+.vertical-menu a:hover {
+    background-color: var(--color-accent-3) !important;
+    color: var(--color-accent) !important;
+    border-left-color: var(--color-accent) !important;
+    box-shadow: 0 2px 8px rgba(31, 107, 110, 0.18) !important;
+}
+
+.vertical-menu a.active {
+    background-color: var(--color-accent) !important;
+    color: #fff !important;
+    border-left-color: var(--color-accent) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.horizontal-menu {
+    gap: 12px !important;
+    padding: 12px !important;
+}
+
+.horizontal-menu a {
+    background-color: var(--color-surface) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 999px !important;
+    box-shadow: 0 2px 6px rgba(20, 26, 29, 0.08) !important;
+}
+
+.horizontal-menu a:hover {
+    background-color: var(--color-accent-3) !important;
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent) !important;
+    box-shadow: 0 4px 12px rgba(31, 107, 110, 0.2) !important;
+}
+
+.horizontal-menu a.active {
+    color: #fff !important;
+    border-color: var(--color-accent) !important;
+    background-color: var(--color-accent) !important;
+    font-weight: 600 !important;
+}
+
 
 .layout-flex{
     display: flex;

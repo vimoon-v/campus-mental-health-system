@@ -1,0 +1,599 @@
+.psych-test-manage {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--text);
+}
+
+.psych-test-manage__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.psych-test-manage__title h2 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.psych-test-manage__title p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.psych-test-manage__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.psych-test-manage__filters {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+
+.psych-test-manage__filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+}
+
+.psych-test-manage__table-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.psych-test-manage__table-wrap {
+    overflow-x: auto;
+}
+
+.psych-test-manage__table {
+    width: 100%;
+    min-width: 920px;
+    border-collapse: collapse;
+}
+
+.psych-test-manage__table th {
+    background: #f8fafc;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: left;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.psych-test-manage__table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.psych-test-manage__table tbody tr.is-active {
+    background: rgba(67, 97, 238, 0.06);
+}
+
+.psych-test-manage__table-title {
+    font-weight: 600;
+}
+
+.psych-test-manage__table-sub {
+    font-size: 12px;
+    margin-top: 4px;
+    color: var(--muted);
+}
+
+.psych-test-manage__table-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--primary);
+}
+
+.psych-test-manage__table-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.psych-test-manage__table-actions button {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+}
+
+.psych-test-manage__table-actions button:hover {
+    color: var(--primary);
+    background: rgba(67, 97, 238, 0.08);
+}
+
+.psych-test-manage__table-footer {
+    padding: 12px 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.psych-test-manage__page-buttons {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.psych-test-manage__page-buttons button {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.psych-test-manage__page-buttons button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.psych-test-manage__overview {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.psych-test-manage__overview-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.psych-test-manage__overview-card p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.psych-test-manage__overview-card h4 {
+    margin: 6px 0 0;
+    font-size: 24px;
+}
+
+.psych-test-manage__overview-card span {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--primary);
+}
+
+.psych-test-manage__overview-card span.is-success {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+}
+
+.psych-test-manage__overview-card span.is-info {
+    background: rgba(54, 209, 220, 0.15);
+    color: #0ea5a6;
+}
+
+.psych-test-manage__overview-card span.is-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+.psych-test-manage__input,
+.psych-test-manage__select,
+.psych-test-manage__textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+}
+
+.psych-test-manage__input:focus,
+.psych-test-manage__select:focus,
+.psych-test-manage__textarea:focus {
+    border-color: rgba(67, 97, 238, 0.45);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.12);
+}
+
+.psych-test-manage__search {
+    position: relative;
+}
+
+.psych-test-manage__search i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.psych-test-manage__search input {
+    padding-left: 34px;
+}
+
+.psych-test-manage__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 20px;
+}
+
+.psych-test-manage__editor-modal {
+    display: none;
+}
+
+.psych-test-manage__editor-modal.is-open {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(15, 23, 42, 0.45);
+    padding: 28px 20px;
+    overflow: auto;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.psych-test-manage__editor-panel {
+    width: min(1160px, 100%);
+    max-height: calc(100vh - 56px);
+    overflow: auto;
+    background: transparent;
+}
+
+.psych-test-manage__editor-head {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.psych-test-manage__editor-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.psych-test-manage__column--legacy {
+    display: none;
+}
+
+.psych-test-manage__column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.psych-test-manage__card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.psych-test-manage__card-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.psych-test-manage__card-header h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.psych-test-manage__list-count {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.psych-test-manage__card-body {
+    padding: 16px 18px;
+}
+
+.psych-test-manage__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 640px;
+    overflow-y: auto;
+}
+
+.psych-test-manage__list-item {
+    padding: 14px 16px;
+    border-left: 4px solid transparent;
+    border-bottom: 1px solid #eef1f7;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.psych-test-manage__list-item:last-child {
+    border-bottom: none;
+}
+
+.psych-test-manage__list-item:hover {
+    background: rgba(67, 97, 238, 0.06);
+}
+
+.psych-test-manage__list-item.is-active {
+    background: rgba(67, 97, 238, 0.1);
+    border-left-color: var(--primary);
+}
+
+.psych-test-manage__list-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.psych-test-manage__list-title h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.psych-test-manage__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.psych-test-manage__badge--published {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+}
+
+.psych-test-manage__badge--draft {
+    background: rgba(149, 165, 166, 0.2);
+    color: #6b7280;
+}
+
+.psych-test-manage__badge--archived {
+    background: rgba(155, 89, 182, 0.15);
+    color: #8e44ad;
+}
+
+.psych-test-manage__accent {
+    color: var(--accent);
+}
+
+.psych-test-manage__list-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.psych-test-manage__list-foot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.psych-test-manage__stats {
+    display: grid;
+    gap: 14px;
+}
+
+.psych-test-manage__stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.psych-test-manage__stat-bar {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: #eef1f7;
+    overflow: hidden;
+}
+
+.psych-test-manage__stat-bar span {
+    display: block;
+    height: 100%;
+    background: var(--primary);
+}
+
+.psych-test-manage__stat-bar.is-accent span {
+    background: var(--accent);
+}
+
+.psych-test-manage__stat-bar.is-success span {
+    background: var(--success);
+}
+
+.psych-test-manage__detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.psych-test-manage__field label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.psych-test-manage__textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.psych-test-manage__section {
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+}
+
+.psych-test-manage__section h4 {
+    margin: 0 0 12px;
+    font-size: 14px;
+}
+
+.psych-test-manage__options {
+    display: grid;
+    gap: 10px;
+}
+
+.psych-test-manage__option-row {
+    display: flex;
+    gap: 10px;
+}
+
+.psych-test-manage__option-row input[type="number"] {
+    width: 72px;
+}
+
+.psych-test-manage__question {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    background: #fff;
+    display: grid;
+    gap: 12px;
+}
+
+.psych-test-manage__question-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.psych-test-manage__question-index {
+    font-size: 12px;
+    color: var(--primary);
+    background: rgba(67, 97, 238, 0.12);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.psych-test-manage__question-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.psych-test-manage__question-actions button {
+    border: none;
+    background: #f1f5f9;
+    color: var(--muted);
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.psych-test-manage__question-actions button:hover {
+    color: var(--primary);
+}
+
+.psych-test-manage__question-list {
+    display: grid;
+    gap: 16px;
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.psych-test-manage__footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.psych-test-manage__empty {
+    padding: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 1200px) {
+    .psych-test-manage__overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .psych-test-manage__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .psych-test-manage__overview {
+        grid-template-columns: 1fr;
+    }
+
+    .psych-test-manage__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .psych-test-manage__detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .psych-test-manage__editor-modal.is-open {
+        padding: 16px 10px;
+    }
+}

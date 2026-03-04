@@ -1,11 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+﻿import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from "react";
 import {UpdateUserRequest, UserController} from "../../../controller/UserController";
-import {CaptchaController} from "../../../controller/CaptchaController";
 import {useOutletContext} from "react-router";
 import {Homepage} from "../HomepageForm";
 import {ResponseHandler, ResponseHandlerRef} from "../../../common/response/ResponseHandler";
 import {Input, InputCallback, InputRef} from "../../../common/view/input/Input";
-import {Captcha, CaptchaCallback, CaptchaRef} from "../../../common/view/custom-input/Captcha";
 import {Button} from "../../../common/view/controller/Button";
 import {Select, SelectCallback, SelectRef} from "../../../common/view/input/Select";
 import {RadioGroup, RadioGroupCallback, RadioGroupRef} from "../../../common/view/input/Radio";
@@ -13,16 +11,16 @@ import {User} from "../../../entity/User";
 import {Loading} from "../../../common/view/display/Loading";
 import {ReturnObject} from "../../../common/response/ReturnObject";
 import {ResponseState} from "../../../common/response/ResponseState";
+import defaultAvatar from "../../../assets/avatar/default-avatar.png";
 
 export const UpdateUserForm: React.FC = () => {
-//控制器
     const userController = new UserController();
-    const captchaController = new CaptchaController();
     const context = useOutletContext<Homepage.OutletContext>();
-    //状态
+
     const [updateUserState, setUpdateUserState] = useState<ResponseState>();
     const [formData, setFormData] = useState<UpdateUserRequest>({
         description: null,
+        avatar: null,
         email: "",
         gender: 0,
         major: null,
@@ -37,7 +35,10 @@ export const UpdateUserForm: React.FC = () => {
         username: "",
         wechat: null
     });
-    //引用
+    const [pendingAvatar, setPendingAvatar] = useState<string | null>(null);
+    const [pendingAvatarFile, setPendingAvatarFile] = useState<File | null>(null);
+    const [avatarUploading, setAvatarUploading] = useState(false);
+
     const updateUserHandler = useRef<ResponseHandlerRef<UpdateUserRequest, any>>(null);
     const usernameInputRef = useRef<InputRef>(null);
     const nicknameInputRef = useRef<InputRef>(null);
@@ -54,34 +55,134 @@ export const UpdateUserForm: React.FC = () => {
     const phoneNumberInputRef = useRef<InputRef>(null);
     const qqInputRef = useRef<InputRef>(null);
     const wechatInputRef = useRef<InputRef>(null);
-    const captchaRef = useRef<CaptchaRef>(null);
-    //钩子
+
+    const username = context.user?.username ?? "";
+    const avatarPreview = useMemo(
+        () => pendingAvatar ?? context.user?.avatar ?? defaultAvatar,
+        [pendingAvatar, context.user?.avatar]
+    );
+
     useEffect(() => {
         document.title = "高校心理咨询预约与匿名交流平台-我的修改信息";
-        usernameInputRef.current?.setValue('' + context.user?.username);
-        nicknameInputRef.current?.setValue('' + context.user?.nickname);
-        descriptionInputRef.current?.setValue('' + context.user?.description);
-        nameInputRef.current?.setValue('' + context.user?.name);
-        genderRadioRef.current?.setValue('' + context.user?.gender);
-        schoolProvinceSelectRef.current?.setValue('' + context.user?.schoolProvince);
-        schoolInputRef.current?.setValue('' + context.user?.school);
-        secondaryUnitInputRef.current?.setValue('' + context.user?.secondaryUnit);
-        majorInputRef.current?.setValue(context.user?.major == null ? "" : '' + context.user?.major);
-        roleRadioRef.current?.setValue('' + context.user?.role);
-        positionSelectRef.current?.setValue('' + context.user?.position);
-        emailInputRef.current?.setValue('' + context.user?.email);
-        phoneNumberInputRef.current?.setValue('' + context.user?.phoneNumber);
-        qqInputRef.current?.setValue(context.user?.qq == null ? "" : '' + context.user?.qq);
-        wechatInputRef.current?.setValue(context.user?.wechat == null ? '' : '' + context.user?.wechat);
-    }, []);
+        usernameInputRef.current?.setValue("" + context.user?.username);
+        nicknameInputRef.current?.setValue(context.user?.nickname ?? "");
+        descriptionInputRef.current?.setValue(context.user?.description ?? "");
+        nameInputRef.current?.setValue("" + context.user?.name);
+        genderRadioRef.current?.setValue("" + context.user?.gender);
+        schoolProvinceSelectRef.current?.setValue("" + context.user?.schoolProvince);
+        schoolInputRef.current?.setValue("" + context.user?.school);
+        secondaryUnitInputRef.current?.setValue("" + context.user?.secondaryUnit);
+        majorInputRef.current?.setValue(context.user?.major == null ? "" : "" + context.user?.major);
+        roleRadioRef.current?.setValue("" + context.user?.role);
+        positionSelectRef.current?.setValue("" + context.user?.position);
+        emailInputRef.current?.setValue("" + context.user?.email);
+        phoneNumberInputRef.current?.setValue("" + context.user?.phoneNumber);
+        qqInputRef.current?.setValue(context.user?.qq == null ? "" : "" + context.user?.qq);
+        wechatInputRef.current?.setValue(context.user?.wechat == null ? "" : "" + context.user?.wechat);
+        if (context.user) {
+            setFormData({
+                username: context.user.username,
+                nickname: context.user.nickname ?? null,
+                description: context.user.description ?? null,
+                avatar: context.user.avatar ?? null,
+                name: context.user.name,
+                gender: Number(context.user.gender),
+                schoolProvince: Number(context.user.schoolProvince),
+                school: context.user.school,
+                secondaryUnit: context.user.secondaryUnit,
+                major: context.user.major ?? null,
+                position: context.user.position,
+                email: context.user.email,
+                phoneNumber: context.user.phoneNumber,
+                qq: context.user.qq ?? null,
+                wechat: context.user.wechat ?? null
+            });
+        }
+    }, [context.user]);
 
+    const parseStringValue = (value: string | string[] | undefined): string => {
+        if (Array.isArray(value)) {
+            return value[0] ?? "";
+        }
+        return value ?? "";
+    };
 
-    //处理表单提交
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
-        // 手动验证所有字段
+    const parseNullableValue = (value: string | string[] | undefined): string | null => {
+        const parsed = parseStringValue(value);
+        return parsed.length === 0 ? null : parsed;
+    };
+
+    const parseNumberValue = (value: string | string[] | undefined, fallback: number): number => {
+        const parsed = Number(parseStringValue(value));
+        return Number.isFinite(parsed) ? parsed : fallback;
+    };
+
+    const normalizeAvatarUrl = (avatar: string | null | undefined): string | null => {
+        if (!avatar || !avatar.trim()) {
+            return null;
+        }
+        const value = avatar.trim();
+        if (/^https?:\/\//i.test(value)) {
+            return value;
+        }
+        if (value.startsWith("/uploads/avatar/")) {
+            return `${window.location.origin}${value}`;
+        }
+        if (value.startsWith("uploads/avatar/")) {
+            return `${window.location.origin}/${value}`;
+        }
+        return value;
+    };
+
+    const buildRequestBody = (avatarUrl: string | null): UpdateUserRequest => {
+        return {
+            username: username,
+            nickname: parseNullableValue(nicknameInputRef.current?.getValue()),
+            description: parseNullableValue(descriptionInputRef.current?.getValue()),
+            avatar: avatarUrl,
+            name: parseStringValue(nameInputRef.current?.getValue()),
+            gender: parseNumberValue(genderRadioRef.current?.getValue(), Number(context.user?.gender ?? 0)),
+            schoolProvince: parseNumberValue(schoolProvinceSelectRef.current?.getValue(), Number(context.user?.schoolProvince ?? 0)),
+            school: parseStringValue(schoolInputRef.current?.getValue()),
+            secondaryUnit: parseStringValue(secondaryUnitInputRef.current?.getValue()),
+            major: parseNullableValue(majorInputRef.current?.getValue()),
+            position: parseStringValue(positionSelectRef.current?.getValue()),
+            email: parseStringValue(emailInputRef.current?.getValue()),
+            phoneNumber: parseStringValue(phoneNumberInputRef.current?.getValue()),
+            qq: parseNullableValue(qqInputRef.current?.getValue()),
+            wechat: parseNullableValue(wechatInputRef.current?.getValue())
+        };
+    };
+
+    const handleAvatarFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) {
+            return;
+        }
+        if (!file.type.startsWith("image/")) {
+            alert("请选择图片文件");
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            alert("头像大小不能超过5MB");
+            return;
+        }
+        setPendingAvatarFile(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64 = String(reader.result ?? "");
+            if (!base64) {
+                return;
+            }
+            setPendingAvatar(base64);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         const isUsernameValid = usernameInputRef.current?.getValue();
         const isNicknameValid = nicknameInputRef.current?.validate();
-        const isDescriptionValid = nicknameInputRef.current?.validate();
+        const isDescriptionValid = descriptionInputRef.current?.validate();
         const isNameValid = nameInputRef.current?.validate();
         const isGenderValid = genderRadioRef.current?.validate();
         const isSchoolProvinceValid = schoolProvinceSelectRef.current?.validate();
@@ -94,15 +195,50 @@ export const UpdateUserForm: React.FC = () => {
         const isPhoneNumberValid = phoneNumberInputRef.current?.validate();
         const isQqValid = qqInputRef.current?.validate();
         const isWechatValid = wechatInputRef.current?.validate();
-        formData.username = "" + context.user?.username;
-        const isCaptchaValid = captchaRef.current?.validate();
-        // 阻止默认提交
+
         event.preventDefault();
-        if (isUsernameValid && isNicknameValid && isDescriptionValid && isNameValid && isGenderValid && isSchoolProvinceValid && isSchoolValid && isSecondaryUnitValid && isMajorValid && isRoleValid && isPositionValid && isEmailValid && isPhoneNumberValid && isQqValid && isWechatValid && isCaptchaValid) {
-            //console.log("暂停测试：",formData);alert("暂停测试");
-            updateUserHandler.current?.request(formData);
+        if (
+            isUsernameValid &&
+            isNicknameValid &&
+            isDescriptionValid &&
+            isNameValid &&
+            isGenderValid &&
+            isSchoolProvinceValid &&
+            isSchoolValid &&
+            isSecondaryUnitValid &&
+            isMajorValid &&
+            isRoleValid &&
+            isPositionValid &&
+            isEmailValid &&
+            isPhoneNumberValid &&
+            isQqValid &&
+            isWechatValid
+        ) {
+            let avatarUrl = normalizeAvatarUrl(context.user?.avatar ?? null);
+            if (pendingAvatarFile) {
+                try {
+                    setAvatarUploading(true);
+                    const uploadResult = await userController.uploadAvatar(pendingAvatarFile);
+                    if (uploadResult.status !== ReturnObject.Status.SUCCESS) {
+                        alert(uploadResult.message ?? "头像上传失败");
+                        return;
+                    }
+                    const uploadData = uploadResult.data as {url?: string; relativeUrl?: string} | undefined;
+                    avatarUrl = normalizeAvatarUrl(uploadData?.url ?? null);
+                    if (!avatarUrl || !/^https?:\/\//i.test(avatarUrl)) {
+                        alert("头像上传成功，但未获取到可访问URL");
+                        return;
+                    }
+                } catch (error) {
+                    alert("头像上传失败，请稍后重试");
+                    return;
+                } finally {
+                    setAvatarUploading(false);
+                }
+            }
+            updateUserHandler.current?.request(buildRequestBody(avatarUrl));
         } else {
-            alert('请检查表单错误!');
+            alert("请检查表单错误！");
         }
     };
 
@@ -110,201 +246,63 @@ export const UpdateUserForm: React.FC = () => {
         <div>
             <h2>修改信息</h2>
             <p className="home-notice">提示：若无法获取输入框中的初始信息，请尝试刷新</p>
+            {avatarUploading ? <p className="home-notice">头像上传中，请稍候...</p> : null}
             <form onSubmit={handleSubmit}>
                 <div className="home-pair-page">
                     <div style={{width: "400px"}}>
-                        <Input
-                            ref={usernameInputRef}
-                            type="text"
-                            label="用户名"
-                            placeholder="请输入用户名"
-                            validationRules={User.ValidationRules.username}
-                            disabled
-                            required
-                        />
-                        <Input
-                            ref={nicknameInputRef}
-                            type="text"
-                            label="昵称"
-                            placeholder="请输入昵称"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("nickname", setFormData, null)}
-                            validationRules={User.ValidationRules.nickname}
-                        />
-                        <Input
-                            ref={descriptionInputRef}
-                            type="text"
-                            label="描述"
-                            placeholder="请输入描述"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("description", setFormData, null)}
-                            validationRules={User.ValidationRules.description}
-                        />
+                        <div className="mine-avatar-wrap">
+                            <img className="mine-avatar" src={avatarPreview} alt="用户头像"/>
+                            <input type="file" accept="image/*" onChange={handleAvatarFileChange}/>
+                        </div>
 
-                        <Input
-                            ref={nameInputRef}
-                            type="text"
-                            label="姓名"
-                            placeholder="请输入姓名"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("name", setFormData, null)}
-                            validationRules={User.ValidationRules.name}
-                            required
-                        />
-
-                        <Select
-                            ref={schoolProvinceSelectRef}
-                            label="学校所在省份"
-                            options={User.Options.schoolProvince}
-                            onChange={SelectCallback.handleDataChange<UpdateUserRequest>("schoolProvince", setFormData, null)}
-                            placeholder="请选择入学校所在省份"
-                            required
-                            showSelectAll
-                            maxTagCount={2}
-                        />
-                        <Input
-                            ref={schoolInputRef}
-                            type="text"
-                            label="所属学校"
-                            placeholder="所属学校"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("school", setFormData, null)}
-                            validationRules={User.ValidationRules.school}
-                            required
-                        />
-                        <Input
-                            ref={secondaryUnitInputRef}
-                            type="text"
-                            label="二级单位"
-                            placeholder="二级单位"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("secondaryUnit", setFormData, null)}
-                            validationRules={User.ValidationRules.secondaryUnit}
-                            required
-                        />
-                        <Input
-                            ref={majorInputRef}
-                            type="text"
-                            label="专业"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("major", setFormData, null)}
-                            placeholder="专业"
-                            validationRules={User.ValidationRules.major}
-                        />
-
+                        <Input ref={usernameInputRef} type="text" label="用户名" placeholder="请输入用户名" validationRules={User.ValidationRules.username} disabled required />
+                        <Input ref={nicknameInputRef} type="text" label="昵称" placeholder="请输入昵称" onChange={InputCallback.handleDataChange<UpdateUserRequest>("nickname", setFormData, null)} validationRules={User.ValidationRules.nickname} />
+                        <Input ref={descriptionInputRef} type="text" label="描述" placeholder="请输入描述" onChange={InputCallback.handleDataChange<UpdateUserRequest>("description", setFormData, null)} validationRules={User.ValidationRules.description} />
+                        <Input ref={nameInputRef} type="text" label="姓名" placeholder="请输入姓名" onChange={InputCallback.handleDataChange<UpdateUserRequest>("name", setFormData, null)} validationRules={User.ValidationRules.name} required />
+                        <Select ref={schoolProvinceSelectRef} label="学校所在省份" options={User.Options.schoolProvince} onChange={SelectCallback.handleDataChange<UpdateUserRequest>("schoolProvince", setFormData, null)} placeholder="请选择学校所在省份" required showSelectAll maxTagCount={2} />
+                        <Input ref={schoolInputRef} type="text" label="所属学校" placeholder="所属学校" onChange={InputCallback.handleDataChange<UpdateUserRequest>("school", setFormData, null)} validationRules={User.ValidationRules.school} required />
+                        <Input ref={secondaryUnitInputRef} type="text" label="二级单位" placeholder="二级单位" onChange={InputCallback.handleDataChange<UpdateUserRequest>("secondaryUnit", setFormData, null)} validationRules={User.ValidationRules.secondaryUnit} required />
+                        <Input ref={majorInputRef} type="text" label="专业" onChange={InputCallback.handleDataChange<UpdateUserRequest>("major", setFormData, null)} placeholder="专业" validationRules={User.ValidationRules.major} />
                     </div>
                     <div style={{width: "400px", marginLeft: "25px"}}>
-                        <RadioGroup
-                            ref={genderRadioRef}
-                            name="gender"
-                            label="性别"
-                            onChange={RadioGroupCallback.handleDataChange<UpdateUserRequest>("gender", setFormData, null)}
-                            size="large"
-                            options={User.Options.gender}
-                            required
-                            layout="horizontal"
-                        />
-                        <RadioGroup
-                            ref={roleRadioRef}
-                            label="用户类型"
-                            size="large"
-                            options={User.Options.role}
-                            required
-                            layout="horizontal"
-                            disabled
-                        />
-                        <Select
-                            ref={positionSelectRef}
-                            label="职务"
-                            options={User.Options.position}
-                            onChange={SelectCallback.handleDataChange<UpdateUserRequest>("position", setFormData, null)}
-                            placeholder="请选择职务"
-                            required
-                            showSelectAll
-                            maxTagCount={2}
-                        />
-                        <Input
-                            ref={emailInputRef}
-                            type="email"
-                            label="Email"
-                            placeholder="Email"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("email", setFormData, null)}
-                            validationRules={User.ValidationRules.email}
-                            prefix={<span>@</span>}
-                            required
-                        />
-                        <Input
-                            ref={phoneNumberInputRef}
-                            type="text"
-                            label="电话号码"
-                            placeholder="电话号码"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("phoneNumber", setFormData, null)}
-                            validationRules={User.ValidationRules.phoneNumber}
-                            required
-                        />
-                        <Input
-                            ref={qqInputRef}
-                            type="text"
-                            label="QQ"
-                            placeholder="QQ"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("qq", setFormData, null)}
-                            validationRules={User.ValidationRules.qq}
-                        />
-                        <Input
-                            ref={wechatInputRef}
-                            type="text"
-                            label="微信"
-                            placeholder="微信"
-                            onChange={InputCallback.handleDataChange<UpdateUserRequest>("wechat", setFormData, null)}
-                            validationRules={User.ValidationRules.wechat}
-                        />
-
-                        <Captcha
-                            ref={captchaRef}
-                            onChange={CaptchaCallback.handleDataChange<UpdateUserRequest>("captchaKey", "captcha", captchaRef, setFormData, null)}
-                            placeholder="请输入图片中的验证码"
-                            autoRefresh={true}
-                            getCaptcha={captchaController.captcha}
-                        />
+                        <RadioGroup ref={genderRadioRef} name="gender" label="性别" onChange={RadioGroupCallback.handleDataChange<UpdateUserRequest>("gender", setFormData, null)} size="large" options={User.Options.gender} required layout="horizontal" />
+                        <RadioGroup ref={roleRadioRef} label="用户类型" size="large" options={User.Options.role} required layout="horizontal" disabled />
+                        <Select ref={positionSelectRef} label="职务" options={User.Options.position} onChange={SelectCallback.handleDataChange<UpdateUserRequest>("position", setFormData, null)} placeholder="请选择职务" required showSelectAll maxTagCount={2} />
+                        <Input ref={emailInputRef} type="email" label="Email" placeholder="Email" onChange={InputCallback.handleDataChange<UpdateUserRequest>("email", setFormData, null)} validationRules={User.ValidationRules.email} prefix={<span>@</span>} required />
+                        <Input ref={phoneNumberInputRef} type="text" label="电话号码" placeholder="电话号码" onChange={InputCallback.handleDataChange<UpdateUserRequest>("phoneNumber", setFormData, null)} validationRules={User.ValidationRules.phoneNumber} required />
+                        <Input ref={qqInputRef} type="text" label="QQ" placeholder="QQ" onChange={InputCallback.handleDataChange<UpdateUserRequest>("qq", setFormData, null)} validationRules={User.ValidationRules.qq} />
+                        <Input ref={wechatInputRef} type="text" label="微信" placeholder="微信" onChange={InputCallback.handleDataChange<UpdateUserRequest>("wechat", setFormData, null)} validationRules={User.ValidationRules.wechat} />
                     </div>
                 </div>
                 <br/>
-                <Button type="primary" block={true} summit>提交修改</Button>
+                <Button type="primary" block summit>提交修改</Button>
             </form>
         </div>
     );
 
-
-    return (<div style={{marginLeft: "25px"}}>
-        <ResponseHandler<UpdateUserRequest, any>
-            ref={updateUserHandler}
-            request={userController.updateUser}
-            setResponseState={setUpdateUserState}
-            idleComponent={mainForm}
-            loadingComponent={
-                <div>
-                    {mainForm}
-                    <Loading
-                        type="dots"
-                        text='修改用户信息中...'
-                        color="#2196f3"
-                        size="large"
-                        fullScreen/>
-                </div>}
-            handlingReturnObjectComponent={
-                <div>
-                    {mainForm}
-                    <Loading
-                        type="dots"
-                        text='处理修改用户信息结果中...'
-                        color="#2196f3"
-                        size="large"
-                        fullScreen/>
-                </div>}
-
-            networkErrorComponent={<div>
-                <h3>网络错误</h3>
-                <p className="home-error-detail">{updateUserState?.returnObject?.message}</p>
-            </div>}
-
-            finishedComponent={<div>
-                <h3>修改用户信息{ReturnObject.Status.ChineseName.get(updateUserState?.returnObject?.status)}</h3>
-                <p className="home-error-detail">{updateUserState?.returnObject?.message}</p>
-            </div>}
-        />
-    </div>)
-}
+    return (
+        <div style={{marginLeft: "25px"}}>
+            <ResponseHandler<UpdateUserRequest, any>
+                ref={updateUserHandler}
+                request={userController.updateUser}
+                setResponseState={setUpdateUserState}
+                onRequestEnd={(_, returnObject) => {
+                    if (returnObject.code === ReturnObject.Code.SUCCESS) {
+                        setPendingAvatar(null);
+                        setPendingAvatarFile(null);
+                        userController.loggedInUser(null).then((result) => {
+                            if (result.code === ReturnObject.Code.SUCCESS) {
+                                context.setUser?.(result.data ?? null);
+                            }
+                        }).catch(() => undefined);
+                    }
+                }}
+                idleComponent={mainForm}
+                loadingComponent={<div>{mainForm}<Loading type="dots" text="修改用户信息中..." color="#2196f3" size="large" fullScreen/></div>}
+                handlingReturnObjectComponent={<div>{mainForm}<Loading type="dots" text="处理修改用户信息结果中..." color="#2196f3" size="large" fullScreen/></div>}
+                networkErrorComponent={<div><h3>网络错误</h3><p className="home-error-detail">{updateUserState?.returnObject?.message}</p></div>}
+                finishedComponent={<div><h3>修改用户信息{ReturnObject.Status.ChineseName.get(updateUserState?.returnObject?.status)}</h3><p className="home-error-detail">{updateUserState?.returnObject?.message}</p></div>}
+            />
+        </div>
+    );
+};

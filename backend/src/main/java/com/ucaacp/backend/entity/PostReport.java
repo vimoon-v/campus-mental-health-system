@@ -21,6 +21,9 @@ public class PostReport {
     @Column(name = "report_reason", nullable = false, columnDefinition = "TEXT")
     private String reportReason;
 
+    @Column(name = "report_type", nullable = false, length = 20)
+    private String reportType = "其他";
+
     @Column(name = "reporter_username", length = 50)
     private String reporterUsername;
 
@@ -30,9 +33,10 @@ public class PostReport {
     // 构造方法
     public PostReport() {}
 
-    public PostReport(Integer postId, String reportReason, String reporterUsername) {
+    public PostReport(Integer postId, String reportReason, String reportType, String reporterUsername) {
         this.postId = postId;
         this.reportReason = reportReason;
+        this.reportType = reportType;
         this.reporterUsername = reporterUsername;
     }
 }

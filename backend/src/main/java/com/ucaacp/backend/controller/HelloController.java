@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // 开发环境使用
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"}) // 开发环境使用
 public class HelloController {
     
     @GetMapping("/hello")
@@ -27,3 +27,4 @@ public class HelloController {
     }
 
 }
+

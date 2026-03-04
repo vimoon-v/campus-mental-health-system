@@ -23,7 +23,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    background-color: #bfbfbf;
+    background-color: #c9d2d1;
     border-radius: 100px;
     transition: all 0.3s ease;
     overflow: hidden;
@@ -48,35 +48,35 @@
 
 /* 选中状态 */
 .switch--checked .switch-track {
-    background-color: #1890ff;
+    background-color: var(--color-accent);
 }
 
 /* 禁用状态 */
 .switch--disabled .switch-track {
-    background-color: #f5f5f5;
+    background-color: var(--color-surface-2);
     cursor: not-allowed;
 }
 
 .switch--disabled.switch--checked .switch-track {
-    background-color: #bae7ff;
+    background-color: rgba(31, 107, 110, 0.28);
 }
 
 /* 焦点状态 */
 .switch--focused .switch-track {
-    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.2);
 }
 
 /* 错误状态 */
 .switch--error .switch-track {
-    background-color: #ffccc7;
+    background-color: rgba(216, 76, 76, 0.3);
 }
 
 .switch--error.switch--checked .switch-track {
-    background-color: #ff7875;
+    background-color: #d86060;
 }
 
 .switch--error.switch--focused .switch-track {
-    box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.2);
+    box-shadow: 0 0 0 3px rgba(216, 76, 76, 0.25);
 }
 
 .switch-handle {
@@ -127,28 +127,28 @@
 
 /* 禁用状态的手柄 */
 .switch--disabled .switch-handle {
-    background-color: #fafafa;
+    background-color: var(--color-bg-soft);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* 加载状态 */
 .switch--loading .switch-handle {
-    background-color: #f0f0f0;
+    background-color: var(--color-surface-2);
 }
 
 .switch-loading-spinner {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #8c8c8c;
+    color: var(--color-muted);
 }
 
 .switch--checked .switch-loading-spinner {
-    color: #1890ff;
+    color: var(--color-accent);
 }
 
 .switch--disabled .switch-loading-spinner {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 /* 轨道内标签 */
@@ -189,7 +189,7 @@
 /* 外部标签 */
 .switch-text {
     font-size: 14px;
-    color: #333;
+    color: var(--color-text);
     user-select: none;
 }
 
@@ -202,15 +202,15 @@
 }
 
 .switch--disabled .switch-text {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 .switch--error .switch-text {
-    color: #ff4d4f;
+    color: var(--color-danger);
 }
 
 .switch-required {
-    color: #ff4d4f;
+    color: var(--color-danger);
     margin-left: 2px;
 }
 
@@ -218,25 +218,25 @@
 .switch-error {
     margin-top: 4px;
     font-size: 12px;
-    color: #ff4d4f;
+    color: var(--color-danger);
     line-height: 1.5;
 }
 
 /* 悬停效果 */
 .switch-label:not(.switch--disabled):not(.switch--loading):hover .switch-track {
-    background-color: #8c8c8c;
+    background-color: #a8b4b3;
 }
 
 .switch-label:not(.switch--disabled):not(.switch--loading):hover.switch--checked .switch-track {
-    background-color: #40a9ff;
+    background-color: #2f8f8a;
 }
 
 .switch-label:not(.switch--disabled):not(.switch--loading):hover.switch--error .switch-track {
-    background-color: #ffa39e;
+    background-color: rgba(216, 76, 76, 0.45);
 }
 
 .switch-label:not(.switch--disabled):not(.switch--loading):hover.switch--error.switch--checked .switch-track {
-    background-color: #ff7875;
+    background-color: #d86060;
 }
 
 /* 加载状态动画 */

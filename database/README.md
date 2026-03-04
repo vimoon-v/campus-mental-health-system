@@ -17,7 +17,7 @@
 | school | VARCHAR(60) | NOT NULL | - | - | 所属学校名称，4-60个字符 |
 | secondary_unit | VARCHAR(100) | NOT NULL | - | - | 二级单位名称，2-100个字符 |
 | major | VARCHAR(45) | YES | NULL | - | 专业名称，长度2-45个字符 |
-| role | TINYINT | NOT NULL | - | - | 用户类型编码[0未知，1学生，2教师，3管理员，9未指定] |
+| role | TINYINT | NOT NULL | - | - | 用户类型编码[0未知，1学生，2咨询师，3学校管理员，4平台管理员，9未指定] |
 | position | VARCHAR(20) | NOT NULL | - | - | 职务，长度2-20个字符，只能是特定枚举值 |
 | email | VARCHAR(255) | NOT NULL | - | - | 邮箱地址，最多255个字符 |
 | phone_number | VARCHAR(20) | NOT NULL | - | - | 电话号码，20个字符，符合国家标准格式 |
@@ -197,6 +197,7 @@
 | report_id | INT | NOT NULL | AUTO_INCREMENT | 主键 | 举报记录ID，自增唯一 |
 | knowledge_id | INT | NOT NULL | - | 外键 | 被举报的科普ID，关联心理知识科普表 |
 | report_reason | TEXT | NOT NULL | - | - | 举报理由，需详细说明原因 |
+| report_type | VARCHAR(20) | NOT NULL | 其他 | - | 举报类型：内容违规/广告推广/人身攻击/隐私泄露/其他 |
 | reporter_username | VARCHAR(50) | YES | NULL | 外键 | 举报者用户名，关联用户表 |
 | report_time | DATETIME | NOT NULL | CURRENT_TIMESTAMP | - | 举报提交时间 |
 
@@ -205,6 +206,32 @@
 - **外键约束**:
     - fk_report_knowledge: knowledge_id → psych_knowledge(knowledge_id)
     - fk_report_reporter: reporter_username → user(username)
+
+---
+
+## 系统通知表 (system_notification)
+
+### 表说明
+存储平台向用户发送的系统消息，包括预约结果、举报处理、回复提醒、系统公告、审核结果等通知。
+
+| 字段名 | 数据类型 | 是否为空 | 默认值 | 约束 | 说明 |
+|--------|----------|----------|---------|------|------|
+| notification_id | INT | NOT NULL | AUTO_INCREMENT | 主键 | 通知ID |
+| recipient_username | VARCHAR(45) | NOT NULL | - | 外键 | 接收者用户名 |
+| sender_username | VARCHAR(45) | YES | NULL | 外键 | 发送者用户名，可为空（系统发送） |
+| notification_type | VARCHAR(32) | NOT NULL | - | - | 通知类型（APPOINTMENT_NEW/APPOINTMENT_RESULT/REPORT_RESULT/REPLY/ANNOUNCEMENT/REVIEW_RESULT/SYSTEM） |
+| title | VARCHAR(120) | NOT NULL | - | - | 通知标题 |
+| content | TEXT | NOT NULL | - | - | 通知内容 |
+| related_type | VARCHAR(32) | YES | NULL | - | 关联业务类型（如 APPOINTMENT/POST/KNOWLEDGE） |
+| related_id | INT | YES | NULL | - | 关联业务ID |
+| is_read | TINYINT(1) | NOT NULL | 0 | - | 是否已读（0未读，1已读） |
+| created_time | DATETIME | NOT NULL | CURRENT_TIMESTAMP | - | 创建时间 |
+
+### 约束说明
+- **主键**: notification_id
+- **外键约束**:
+    - fk_notification_recipient: recipient_username → user(username)
+    - fk_notification_sender: sender_username → user(username)
 
 ---
 

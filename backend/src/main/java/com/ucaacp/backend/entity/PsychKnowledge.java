@@ -23,11 +23,41 @@ public class PsychKnowledge {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "summary", length = 512)
+    private String summary;
+
+    @Column(name = "tags", columnDefinition = "TEXT")
+    private String tags;
+
+    @Column(name = "cover_image", columnDefinition = "MEDIUMTEXT")
+    private String coverImage;
+
+    @Column(name = "category", nullable = false, length = 32)
+    private String category = "growth";
+
+    @Column(name = "view_count", nullable = false)
+    private Integer viewCount = 0;
+
     @Column(name = "teacher_publisher_username", nullable = false, length = 45)
     private String teacherPublisherUsername;
 
     @Column(name = "publish_time", nullable = false, updatable = false)
     private LocalDateTime publishTime = LocalDateTime.now();
+
+    @Column(name = "publish_status", nullable = false, length = 16)
+    private String publishStatus = "publish";
+
+    @Column(name = "schedule_time")
+    private LocalDateTime scheduleTime;
+
+    @Column(name = "visible_range", length = 16)
+    private String visibleRange = "all";
+
+    @Column(name = "allow_comment", nullable = false)
+    private Boolean allowComment = true;
+
+    @Column(name = "recommended", nullable = false)
+    private Boolean recommended = false;
 
     @Column(name = "admin_reviewer_username", length = 45)
     private String adminReviewerUsername;
@@ -46,5 +76,12 @@ public class PsychKnowledge {
         this.title = title;
         this.content = content;
         this.teacherPublisherUsername = teacherPublisherUsername;
+    }
+
+    public PsychKnowledge(String title, String content, String teacherPublisherUsername, String category) {
+        this.title = title;
+        this.content = content;
+        this.teacherPublisherUsername = teacherPublisherUsername;
+        this.category = category;
     }
 }

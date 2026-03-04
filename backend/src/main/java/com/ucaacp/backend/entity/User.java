@@ -42,6 +42,9 @@ public class User {
     @Column(name = "description",length = 255)
     private String description;
 
+    @Column(name = "avatar", columnDefinition = "MEDIUMTEXT")
+    private String avatar;
+
     @NotNull(message = "姓名不能为null")
     @Size(min=2,max=6,message = "姓名长度必须在2-6之间")
     @Pattern(regexp = "^[\\x{4E00}-\\x{9FA5}\\x{3400}-\\x{4DBF}]+$",message = "姓名只能为《通用规范汉字表》中汉字，符合国家标准【姓名登记条例】")
@@ -120,6 +123,7 @@ public class User {
         map.put("username",username);
         map.put("nickname",nickname);
         map.put("password",password);
+        map.put("avatar",avatar);
         map.put("name",name);
         map.put("description",description);
         map.put("gender",gender.getCode().toString());

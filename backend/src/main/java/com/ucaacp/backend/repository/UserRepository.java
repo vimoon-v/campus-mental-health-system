@@ -52,6 +52,15 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT new com.ucaacp.backend.entity.DTO.UserDTO(u.username,u.nickname,u.description,u.name,u.gender,u.schoolProvince,u.school,u.secondaryUnit,u.major,u.role,u.position,u.email,u.phoneNumber,u.qq,u.wechat,u.registrationTime) FROM User u")
     List<UserDTO> findAllUserDTO();
 
+    @Query("SELECT u.username FROM User u WHERE u.password LIKE CONCAT(:prefix, '%')")
+    List<String> findUsernamesByPasswordPrefix(@Param("prefix") String prefix);
+
+    @Query("SELECT u.username FROM User u WHERE u.role = :role")
+    List<String> findUsernamesByRole(@Param("role") UserRole role);
+
+    @Query("SELECT u.username FROM User u")
+    List<String> findAllUsernames();
+
 
 
 }

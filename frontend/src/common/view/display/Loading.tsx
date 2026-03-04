@@ -29,7 +29,7 @@ export interface LoadingProps {
 export const Loading: React.FC<LoadingProps> = ({
                                                     type = 'spinner',
                                                     text,
-                                                    color = '#3f51b5',
+                                                    color = '#1f6b6e',
                                                     size = 'medium',
                                                     fullScreen = false,
                                                     progress = 0,
@@ -37,6 +37,17 @@ export const Loading: React.FC<LoadingProps> = ({
                                                     className = '',
                                                     speed = 'normal'
                                                 }) => {
+    const resolvedColor = (() => {
+        const normalized = color.toLowerCase();
+        if (normalized === '#2196f3' || normalized === '#1890ff' || normalized === '#3f51b5') {
+            return '#1f6b6e';
+        }
+        return color;
+    })();
+
+    const progressBackground = resolvedColor.startsWith('#')
+        ? `${resolvedColor}20`
+        : 'rgba(31, 107, 110, 0.12)';
     // 获取尺寸数值
     const getSizeValue = (): number => {
         if (typeof size === 'number') return size;
@@ -74,7 +85,7 @@ export const Loading: React.FC<LoadingProps> = ({
                         style={{
                             width: sizeValue,
                             height: sizeValue,
-                            borderColor: color,
+                            borderColor: resolvedColor,
                             borderTopColor: 'transparent',
                             animationDuration: speedValue
                         }}
@@ -95,7 +106,7 @@ export const Loading: React.FC<LoadingProps> = ({
                             <div
                                 key={i}
                                 className="loading-dot"
-                                style={{ backgroundColor: color }}
+                                style={{ backgroundColor: resolvedColor }}
                             />
                         ))}
                     </div>
@@ -108,7 +119,7 @@ export const Loading: React.FC<LoadingProps> = ({
                         style={{
                             width: sizeValue,
                             height: sizeValue,
-                            backgroundColor: color,
+                            backgroundColor: resolvedColor,
                             animationDuration: speedValue
                         }}
                     />
@@ -121,7 +132,7 @@ export const Loading: React.FC<LoadingProps> = ({
                             className="skeleton-line"
                             style={{
                                 height: Math.max(16, sizeValue / 3),
-                                backgroundColor: color,
+                                backgroundColor: resolvedColor,
                                 animationDuration: speedValue
                             }}
                         />
@@ -130,7 +141,7 @@ export const Loading: React.FC<LoadingProps> = ({
                             style={{
                                 height: Math.max(16, sizeValue / 3),
                                 width: '80%',
-                                backgroundColor: color,
+                                backgroundColor: resolvedColor,
                                 animationDuration: speedValue
                             }}
                         />
@@ -139,7 +150,7 @@ export const Loading: React.FC<LoadingProps> = ({
                             style={{
                                 height: Math.max(16, sizeValue / 3),
                                 width: '60%',
-                                backgroundColor: color,
+                                backgroundColor: resolvedColor,
                                 animationDuration: speedValue
                             }}
                         />
@@ -153,20 +164,20 @@ export const Loading: React.FC<LoadingProps> = ({
                             className="progress-bar"
                             style={{
                                 height: Math.max(8, sizeValue / 5),
-                                backgroundColor: `${color}20`
+                                backgroundColor: progressBackground
                             }}
                         >
                             <div
                                 className="progress-fill"
                                 style={{
                                     width: `${Math.min(100, Math.max(0, progress))}%`,
-                                    backgroundColor: color,
+                                    backgroundColor: resolvedColor,
                                     transition: 'width 0.3s ease'
                                 }}
                             />
                         </div>
                         {text && (
-                            <div className="progress-text" style={{ color }}>
+                            <div className="progress-text" style={{ color: resolvedColor }}>
                                 {text} {progress > 0 && `${Math.round(progress)}%`}
                             </div>
                         )}
@@ -192,7 +203,7 @@ export const Loading: React.FC<LoadingProps> = ({
                     text && (
                         <div
                             className="loading-text"
-                            style={{ color, fontSize: Math.max(14, getSizeValue() / 3) }}
+                            style={{ color: resolvedColor, fontSize: Math.max(14, getSizeValue() / 3) }}
                         >
                             {text}
                         </div>

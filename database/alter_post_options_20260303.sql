@@ -1,0 +1,7 @@
+USE `UCAACP`;
+
+ALTER TABLE `post`
+    ADD COLUMN IF NOT EXISTS `need_reply` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否希望老师优先回复（0：否，1：是）',
+    ADD COLUMN IF NOT EXISTS `allow_comment` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '是否允许评论（0：否，1：是）',
+    ADD COLUMN IF NOT EXISTS `show_in_recommend` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '是否展示在推荐列表（0：否，1：是）',
+    ADD COLUMN IF NOT EXISTS `anonymous_like` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '是否匿名接收点赞（0：否，1：是）';

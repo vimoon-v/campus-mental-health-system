@@ -10,26 +10,29 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface PsychKnowledgeRepository extends JpaRepository<PsychKnowledge, Integer> {
 
 
 
     //用户只能看到审核通过的科普
-    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
-            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus='PASSED' ORDER BY p.publishTime DESC")
+            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus='PASSED' AND (p.publishStatus IS NULL OR p.publishStatus <> 'draft') ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findAllPassedPsychKnowledgeDTO();
 
 
     //教师能看到自己发布的所有科普
-    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
             "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.teacherPublisherUsername=:username ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findByTeacherPublisherUsername(@Param("username") String username);
@@ -49,46 +52,77 @@ public interface PsychKnowledgeRepository extends JpaRepository<PsychKnowledge, 
     @Query("UPDATE PsychKnowledge p SET p.reviewStatus=:reviewStatus,p.adminReviewerUsername=:adminReviewerUsername,p.reviewTime=:reviewTime WHERE p.knowledgeId=:knowledgeId")
     int updateReviewStatusAdmin(@Param("knowledgeId")Integer knowledgeId, @Param("adminReviewerUsername")String adminReviewerUsername, @Param("reviewTime")LocalDateTime reviewTime, @Param("reviewStatus") ReviewStatus reviewStatus);
 
+    @Modifying
+    @Query("UPDATE PsychKnowledge p SET p.viewCount = p.viewCount + 1 WHERE p.knowledgeId = :knowledgeId")
+    int incrementViewCount(@Param("knowledgeId") Integer knowledgeId);
+
+    @Query("SELECT p.viewCount FROM PsychKnowledge p WHERE p.knowledgeId = :knowledgeId")
+    Integer findViewCountById(@Param("knowledgeId") Integer knowledgeId);
+
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
+            "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
+            "            ELSE u.username END , " +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
+            "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
+            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus='PASSED' AND (p.publishStatus IS NULL OR p.publishStatus <> 'draft') AND p.knowledgeId=:knowledgeId")
+    PsychKnowledgeDTO findPublicPsychKnowledgeById(@Param("knowledgeId") Integer knowledgeId);
+
 
 
     //管理员需要看到所有未审核的科普
-    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
-            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus='PENDING' ORDER BY p.publishTime DESC")
+            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus='PENDING' AND (p.publishStatus IS NULL OR p.publishStatus <> 'draft') ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findAllPendingPsychKnowledgeDTO();
 
     //管理员还需要看到所有已审核的科普
-    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
-            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus!='PENDING' ORDER BY p.publishTime DESC")
+            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.reviewStatus!='PENDING' AND (p.publishStatus IS NULL OR p.publishStatus <> 'draft') ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findAllNonPendingPsychKnowledgeDTO();
 
     //管理员还需要看到所有被举报的科普
-    @Query("SELECT DISTINCT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT DISTINCT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
             "JOIN User u ON p.teacherPublisherUsername = u.username " +
-            "JOIN PsychKnowledgeReport pr ON pr.knowledgeId = p.knowledgeId WHERE p.reviewStatus!='REVOKED' ORDER BY p.publishTime DESC")
+            "JOIN PsychKnowledgeReport pr ON pr.knowledgeId = p.knowledgeId WHERE p.reviewStatus!='REVOKED' AND (p.publishStatus IS NULL OR p.publishStatus <> 'draft') ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findAllReportedPsychKnowledgeDTO();
 
 
     //管理员自己审核的所有科普
-    @Query("SELECT DISTINCT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.teacherPublisherUsername," +
+    @Query("SELECT DISTINCT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
             "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
             "            ELSE u.username END , " +
-            "       p.publishTime,p.adminReviewerUsername," +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
             "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
             "JOIN User u ON p.teacherPublisherUsername = u.username " +
             "WHERE p.adminReviewerUsername=:adminReviewerUsername ORDER BY p.publishTime DESC")
     List<PsychKnowledgeDTO> findAllPsychKnowledgeDTOReviewedByAdmin(@Param("adminReviewerUsername")String adminReviewerUsername);
+
+    @Query("SELECT new com.ucaacp.backend.entity.DTO.PsychKnowledgeDTO(p.knowledgeId,p.title,p.content,p.summary,p.tags,p.coverImage,p.category,p.viewCount,p.teacherPublisherUsername," +
+            "       CASE WHEN u.nickname IS NOT NULL AND u.nickname != '' THEN u.nickname " +
+            "            ELSE u.username END , " +
+            "       u.avatar, " +
+            "       p.publishTime,p.publishStatus,p.scheduleTime,p.visibleRange,p.allowComment,p.recommended,p.adminReviewerUsername," +
+            "       p.reviewTime,p.reviewStatus) FROM PsychKnowledge p " +
+            "JOIN User u ON p.teacherPublisherUsername = u.username WHERE p.knowledgeId=:knowledgeId AND p.teacherPublisherUsername=:teacherUsername")
+    PsychKnowledgeDTO findTeacherPsychKnowledgeById(@Param("knowledgeId") Integer knowledgeId, @Param("teacherUsername") String teacherUsername);
+
+    Optional<PsychKnowledge> findByKnowledgeIdAndTeacherPublisherUsername(Integer knowledgeId, String teacherPublisherUsername);
 
 
 }

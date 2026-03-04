@@ -10,6 +10,10 @@ export interface Post {
     publishTime:Date;
     isAnonymous: boolean;
     isPublic: boolean;
+    needReply?: boolean;
+    allowComment?: boolean;
+    showInRecommend?: boolean;
+    anonymousLike?: boolean;
 }
 
 

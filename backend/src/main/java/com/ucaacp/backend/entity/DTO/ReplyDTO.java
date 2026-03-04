@@ -16,7 +16,10 @@ public class ReplyDTO {
     private Integer postId;
     private String displayName;
     private String username;
+    private String avatar;
     private LocalDateTime replyTime;
+    private Integer parentReplyId;
+    private String replyToDisplayName;
 
 
 }

@@ -22,6 +22,9 @@ public class PsychKnowledgeReport {
     @Column(name = "report_reason", nullable = false, columnDefinition = "TEXT")
     private String reportReason;
 
+    @Column(name = "report_type", nullable = false, length = 20)
+    private String reportType = "其他";
+
     @Column(name = "reporter_username", length = 50)
     private String reporterUsername;
 
@@ -31,9 +34,10 @@ public class PsychKnowledgeReport {
     // 构造方法
     public PsychKnowledgeReport() {}
 
-    public PsychKnowledgeReport(Integer knowledgeId, String reportReason, String reporterUsername) {
+    public PsychKnowledgeReport(Integer knowledgeId, String reportReason, String reportType, String reporterUsername) {
         this.knowledgeId = knowledgeId;
         this.reportReason = reportReason;
+        this.reportType = reportType;
         this.reporterUsername = reporterUsername;
     }
 }

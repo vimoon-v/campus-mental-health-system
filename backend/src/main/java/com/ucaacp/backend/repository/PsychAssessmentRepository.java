@@ -19,4 +19,9 @@ public interface PsychAssessmentRepository extends JpaRepository<PsychAssessment
             "JOIN User u ON p.testUsername = u.username " +
             "WHERE p.testUsername=:testUsername")
     List<PsychAssessmentRecordDTO> findDTOByTestUsername(@Param("testUsername") String testUsername);
+
+    @Query("SELECT p.assessmentClass, COUNT(p) FROM PsychAssessmentRecord p GROUP BY p.assessmentClass")
+    List<Object[]> countByAssessmentClass();
+
+    boolean existsByAssessmentClassAndTestUsername(String assessmentClass, String testUsername);
 }

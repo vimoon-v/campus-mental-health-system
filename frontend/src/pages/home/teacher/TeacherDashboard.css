@@ -1,0 +1,727 @@
+.teacher-dashboard {
+    --primary: #4361ee;
+    --accent: #ff6b6b;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --info: #3498db;
+    --text: #343a40;
+    --muted: #6b7280;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --border: #e6e9f2;
+    --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.teacher-dashboard * {
+    box-sizing: border-box;
+}
+
+.teacher-dashboard__header {
+    background: var(--card);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.teacher-dashboard__header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    gap: 16px;
+}
+
+.teacher-dashboard__menu-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.teacher-dashboard__menu-button:hover {
+    color: var(--primary);
+    border-color: rgba(67, 97, 238, 0.4);
+}
+
+.teacher-dashboard__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.teacher-dashboard__brand i {
+    font-size: 22px;
+}
+
+.teacher-dashboard__brand-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.teacher-dashboard__brand-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.teacher-dashboard__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.teacher-dashboard__scope-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.teacher-dashboard__scope-switch select {
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: var(--text);
+    background: #fff;
+    min-width: 92px;
+}
+
+.teacher-dashboard__scope-btn {
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #fff;
+    background: var(--primary);
+    cursor: pointer;
+}
+
+.teacher-dashboard__scope-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.teacher-dashboard__scope-btn--ghost {
+    color: var(--primary);
+    background: #fff;
+    border-color: rgba(67, 97, 238, 0.35);
+}
+
+.teacher-dashboard__icon-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.teacher-dashboard__icon-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.teacher-dashboard__icon-button:hover {
+    color: var(--primary);
+    border-color: rgba(67, 97, 238, 0.35);
+}
+
+.teacher-dashboard__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(67, 97, 238, 0.2);
+    background: rgba(67, 97, 238, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.teacher-dashboard__user img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.teacher-dashboard__body {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+.teacher-dashboard__sidebar {
+    width: 260px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    padding: 20px 12px;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+}
+
+.teacher-dashboard__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.teacher-dashboard__menu-item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #4b5563;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.teacher-dashboard__menu-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.teacher-dashboard__menu-item:hover {
+    background: rgba(67, 97, 238, 0.08);
+    color: var(--primary);
+}
+
+.teacher-dashboard__menu-item.is-active {
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--primary);
+    box-shadow: inset 3px 0 0 var(--primary);
+}
+
+.teacher-dashboard__sidebar-footer {
+    margin-top: 24px;
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    display: grid;
+    gap: 6px;
+}
+
+.teacher-dashboard__overlay {
+    display: none;
+}
+
+.teacher-dashboard__content {
+    flex: 1;
+    padding: 24px;
+    overflow: auto;
+}
+
+.teacher-dashboard__section {
+    margin-bottom: 24px;
+}
+
+.teacher-dashboard__section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.teacher-dashboard__section-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.teacher-dashboard__section-header p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.teacher-dashboard__section-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.teacher-dashboard__btn {
+    border-radius: 10px;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.teacher-dashboard__btn i {
+    font-size: 12px;
+}
+
+.teacher-dashboard__btn--primary {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+.teacher-dashboard__btn--primary:hover {
+    background: #3651dc;
+}
+
+.teacher-dashboard__btn--ghost {
+    background: #ffffff;
+    border-color: var(--border);
+    color: var(--muted);
+}
+
+.teacher-dashboard__btn--ghost:hover {
+    border-color: rgba(67, 97, 238, 0.35);
+    color: var(--primary);
+}
+
+.teacher-dashboard__btn--outline {
+    background: #ffffff;
+    border-color: rgba(67, 97, 238, 0.3);
+    color: var(--primary);
+}
+
+.teacher-dashboard__btn--outline:hover {
+    background: rgba(67, 97, 238, 0.08);
+}
+
+.teacher-dashboard__btn--full {
+    width: 100%;
+    justify-content: center;
+}
+
+.teacher-dashboard__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.teacher-dashboard__card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.teacher-dashboard__stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.teacher-dashboard__stat-label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.teacher-dashboard__stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.teacher-dashboard__stat-trend {
+    margin-top: 8px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.teacher-dashboard__stat-trend.is-up {
+    color: var(--success);
+}
+
+.teacher-dashboard__stat-trend.is-down {
+    color: var(--accent);
+}
+
+.teacher-dashboard__stat-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.teacher-dashboard__stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.teacher-dashboard__stat-icon--primary {
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--primary);
+}
+
+.teacher-dashboard__stat-icon--warning {
+    background: rgba(243, 156, 18, 0.15);
+    color: var(--warning);
+}
+
+.teacher-dashboard__stat-icon--info {
+    background: rgba(52, 152, 219, 0.15);
+    color: var(--info);
+}
+
+.teacher-dashboard__stat-icon--success {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+}
+
+.teacher-dashboard__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 16px;
+}
+
+.teacher-dashboard__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.teacher-dashboard__card-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.teacher-dashboard__pill-group {
+    display: flex;
+    gap: 6px;
+}
+
+.teacher-dashboard__pill {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.teacher-dashboard__pill.is-active {
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--primary);
+}
+
+.teacher-dashboard__chart {
+    position: relative;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.teacher-dashboard__chart svg {
+    width: 100%;
+    height: 200px;
+}
+
+.teacher-dashboard__chart-area {
+    fill: rgba(67, 97, 238, 0.12);
+}
+
+.teacher-dashboard__chart-line {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+}
+
+.teacher-dashboard__chart-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 6px;
+}
+
+.teacher-dashboard__todo-list {
+    display: grid;
+    gap: 12px;
+}
+
+.teacher-dashboard__todo-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.teacher-dashboard__todo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(67, 97, 238, 0.12);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teacher-dashboard__todo-content h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.teacher-dashboard__todo-content p {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.teacher-dashboard__badge-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.teacher-dashboard__badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    border: 1px solid transparent;
+}
+
+.teacher-dashboard__badge.is-warning {
+    background: rgba(243, 156, 18, 0.15);
+    color: var(--warning);
+}
+
+.teacher-dashboard__badge.is-success {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+}
+
+.teacher-dashboard__badge--ghost {
+    background: #ffffff;
+    border-color: rgba(67, 97, 238, 0.25);
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.teacher-dashboard__link {
+    border: none;
+    background: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.teacher-dashboard__table-wrapper {
+    overflow-x: auto;
+}
+
+.teacher-dashboard__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+}
+
+.teacher-dashboard__table th {
+    text-align: left;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.teacher-dashboard__table td {
+    padding: 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #eef1f7;
+}
+
+.teacher-dashboard__status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+}
+
+.teacher-dashboard__status--warning {
+    background: rgba(243, 156, 18, 0.15);
+    color: var(--warning);
+}
+
+.teacher-dashboard__status--success {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--success);
+}
+
+.teacher-dashboard__status--danger {
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--accent);
+}
+
+.teacher-dashboard__status--info {
+    background: rgba(52, 152, 219, 0.15);
+    color: var(--info);
+}
+
+.teacher-dashboard__table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.teacher-dashboard__table-actions button {
+    border: none;
+    background: #f1f5f9;
+    color: var(--muted);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.teacher-dashboard__table-actions button:hover {
+    color: var(--primary);
+}
+
+.teacher-dashboard__empty {
+    padding: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 1024px) {
+    .teacher-dashboard__menu-button {
+        display: inline-flex;
+    }
+
+    .teacher-dashboard__sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 60;
+    }
+
+    .teacher-dashboard__sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .teacher-dashboard__overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 50;
+    }
+
+    .teacher-dashboard__overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .teacher-dashboard__content {
+        padding: 20px;
+    }
+
+    .teacher-dashboard__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .teacher-dashboard__header-inner {
+        flex-wrap: wrap;
+    }
+
+    .teacher-dashboard__scope-switch {
+        width: 100%;
+        order: 3;
+        flex-wrap: wrap;
+    }
+
+    .teacher-dashboard__scope-switch select {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .teacher-dashboard__user span {
+        display: none;
+    }
+
+    .teacher-dashboard__section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .teacher-dashboard__section-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}

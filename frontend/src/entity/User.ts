@@ -10,6 +10,7 @@ export interface User {
     username:string;
     nickname:string|null;
     description:string|null;
+    avatar:string|null;
     name:string;
     password:null,//密码保护
     gender:number,
@@ -148,7 +149,8 @@ export namespace User {
         export const role: RadioOption[] = [
             {label: ''+UserRole.ChineseName.get(UserRole.STUDENT), value: UserRole.STUDENT.toString()},
             {label: ''+UserRole.ChineseName.get(UserRole.TEACHER), value: UserRole.TEACHER.toString()},
-            {label: ''+UserRole.ChineseName.get(UserRole.ADMIN), value: UserRole.ADMIN.toString()}
+            {label: ''+UserRole.ChineseName.get(UserRole.ADMIN), value: UserRole.ADMIN.toString()},
+            {label: ''+UserRole.ChineseName.get(UserRole.SYSTEM_ADMIN), value: UserRole.SYSTEM_ADMIN.toString()}
         ];
 
         //职务选项

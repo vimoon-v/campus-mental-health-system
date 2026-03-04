@@ -1,7 +1,6 @@
 //React框架
-import {createBrowserRouter, createHashRouter} from "react-router-dom";
+import {createHashRouter, Navigate} from "react-router-dom";
 //页面
-import {Preview} from "../pages/Preview";
 import {LoginForm} from "../pages/auth/LoginForm";
 import {SignUpForm} from "../pages/auth/SignUpForm";
 import {HomepageForm, Homepage} from "../pages/home/HomepageForm";
@@ -10,7 +9,8 @@ import {PsychTestForm} from "../pages/psych_test/PsychTestForm";
 import {PsychKnowledgeRoot, PsychKnowledgeRootPage} from "../pages/psych_knowledge/PsychKnowledgeRootPage";
 //主路由
 export const router=createHashRouter([
-    {path:"/",element:<Preview/>},
+    {path:"/",element:<Navigate to="/auth/login" replace/>},
+    {path:"/preview",element:<Navigate to="/auth/login" replace/>},
     {path:"/auth/login",element:<LoginForm/>},
     {path:"/auth/signup",element:<SignUpForm/>},
     {path:"/home",element:<HomepageForm/>, children:Homepage.Children},

@@ -1,5 +1,5 @@
 //React框架
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 //样式
 import './Home.css'
 import '../../css/LayoutFlex.css'
@@ -22,25 +22,28 @@ export const AppointmentForm: React.FC = () => {
         document.title = "高校心理咨询预约与匿名交流平台-预约";
     }, []);
 
-    if(Number(context.user?.role)===UserRole.STUDENT){
+    if(UserRole.normalize(context.user?.role)===UserRole.STUDENT){
         mainForm=(<AppointmentStudentForm studentUser={context.user}/>);
     }
 
-    if(Number(context.user?.role)===UserRole.TEACHER){
+    if(UserRole.normalize(context.user?.role)===UserRole.TEACHER){
         mainForm=(<AppointmentTeacherForm teacherUser={context.user}/>);
     }
 
-    if(Number(context.user?.role)===UserRole.ADMIN){
+    if(UserRole.isAdminRole(context.user?.role)){
         mainForm=(<AppointmentAdminForm adminUser={context.user}/>);
     }
 
+    if (UserRole.normalize(context.user?.role) === UserRole.STUDENT) {
+        return (<div className="layout-flex-column">{mainForm}</div>);
+    }
 
     return (<div className="layout-flex-column">
-        <div >
-            {Number(context.user?.role)===UserRole.ADMIN?(<h2>
-                所有的预约概览
+        <div>
+            {UserRole.isAdminRole(context.user?.role)?(<h2>
+                所有预约记录管理
             </h2>):(<h2>
-                {UserRole.ChineseName.get(Number(context.user?.role))}预约
+                {UserRole.ChineseName.get(UserRole.normalize(context.user?.role))}预约
             </h2>)}
 
         </div>

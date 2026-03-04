@@ -20,6 +20,8 @@ export const PsychKnowledgeReportView: React.FC<PsychKnowledgeReportViewProps> =
     const [deleteReportState,setDeleteReportState] = useState<ResponseState>();
     const deleteReportHandlerRef=useRef<ResponseHandlerRef<{reportId:number},null>>(null);
     const deleteReportResultDialogRef=useRef<DialogRef>(null);
+    const reporterName = psychKnowledgeReport.reporterUsername || "未知用户";
+    const reportType = psychKnowledgeReport.reportType || "其他";
 
 
     const confirmDialog = (<Dialog
@@ -112,12 +114,13 @@ export const PsychKnowledgeReportView: React.FC<PsychKnowledgeReportViewProps> =
             {confirmDialog}
             {deleteReportResultDialog}
             <div className="reply-content">
+                <p><strong>类型：</strong>{reportType}</p>
                 <p>{psychKnowledgeReport.reportReason}</p>
             </div>
             <div className="reply-meta">
                 <div className="reply-author">
-                    <div className="reply-avatar">{psychKnowledgeReport.reporterUsername[0]}</div>
-                    <span className="author-name">{psychKnowledgeReport.reporterUsername}</span>
+                    <div className="reply-avatar">{reporterName[0]}</div>
+                    <span className="author-name">{reporterName}</span>
                 </div>
                 <div className="reply-time">
                     <span className="time-icon"><i className="far fa-clock"></i></span>

@@ -10,13 +10,13 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--color-text);
     border: none;
     padding: 0;
 }
 
 .radio-required {
-    color: #ff4d4f;
+    color: var(--color-danger);
     margin-left: 4px;
 }
 
@@ -64,15 +64,15 @@
 }
 
 .radio-option-label:hover:not(.radio-option-label--disabled) {
-    color: #1890ff;
+    color: var(--color-accent);
 }
 
 .radio-option-label--checked:not(.radio-option-label--disabled) {
-    color: #1890ff;
+    color: var(--color-accent);
 }
 
 .radio-option-label--disabled {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
     cursor: not-allowed;
 }
 
@@ -90,9 +90,9 @@
     height: 16px;
     margin-right: 8px;
     margin-top: 2px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid var(--color-border);
     border-radius: 50%;
-    background-color: #fff;
+    background-color: var(--color-surface);
     transition: all 0.2s;
     flex-shrink: 0;
 }
@@ -110,23 +110,23 @@
 }
 
 .radio-option-label:hover:not(.radio-option-label--disabled) .radio-custom {
-    border-color: #1890ff;
+    border-color: var(--color-accent);
 }
 
 .radio-option-label--checked .radio-custom {
-    border-color: #1890ff;
-    background-color: #1890ff;
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
 }
 
 .radio-option-label--disabled .radio-custom {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
     cursor: not-allowed;
 }
 
 .radio-option-label--checked.radio-option-label--disabled .radio-custom {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
 }
 
 .radio-inner {
@@ -156,7 +156,7 @@
 }
 
 .radio-option-label--checked.radio-option-label--disabled .radio-inner {
-    background-color: #bfbfbf;
+    background-color: rgba(31, 36, 38, 0.4);
 }
 
 .radio-text {
@@ -167,28 +167,28 @@
 
 .radio-description {
     font-size: 12px;
-    color: #8c8c8c;
+    color: var(--color-muted);
     margin-top: 2px;
     font-weight: normal;
 }
 
 .radio-option-label--disabled .radio-description {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 /* 焦点状态 */
 .radio-input:focus-visible + .radio-custom {
-    outline: 2px solid #1890ff;
+    outline: 2px solid rgba(31, 107, 110, 0.4);
     outline-offset: 2px;
 }
 
 .radio-group--focused .radio-custom {
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.18);
 }
 
 /* 错误状态 */
 .radio-group--error .radio-custom {
-    border-color: #ff4d4f;
+    border-color: var(--color-danger);
 }
 
 .radio-group--error .radio-group-label {
@@ -198,6 +198,6 @@
 .radio-group-error {
     margin-top: 4px;
     font-size: 12px;
-    color: #ff4d4f;
+    color: var(--color-danger);
     line-height: 1.5;
 }

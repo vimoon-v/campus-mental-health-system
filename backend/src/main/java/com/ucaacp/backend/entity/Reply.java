@@ -24,6 +24,9 @@ public class Reply {
     @Column(name = "username", nullable = false, length = 45)
     private String username;
 
+    @Column(name = "parent_reply_id")
+    private Integer parentReplyId;
+
     @Column(name = "reply_time", nullable = false, updatable = false)
     private LocalDateTime replyTime = LocalDateTime.now();
 

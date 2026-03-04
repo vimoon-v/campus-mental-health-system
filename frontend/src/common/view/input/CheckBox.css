@@ -9,13 +9,13 @@
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--color-text);
     border: none;
     padding: 0;
 }
 
 .checkbox-required {
-    color: #ff4d4f;
+    color: var(--color-danger);
     margin-left: 4px;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .checkbox-select-all {
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--color-border);
     padding-bottom: 8px;
     margin-bottom: 4px;
 }
@@ -67,15 +67,15 @@
 }
 
 .checkbox-option-label:hover:not(.checkbox-option-label--disabled) {
-    color: #1890ff;
+    color: var(--color-accent);
 }
 
 .checkbox-option-label--checked:not(.checkbox-option-label--disabled) {
-    color: #1890ff;
+    color: var(--color-accent);
 }
 
 .checkbox-option-label--disabled {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
     cursor: not-allowed;
 }
 
@@ -95,9 +95,9 @@
     height: 16px;
     margin-right: 8px;
     margin-top: 2px;
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    background-color: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-surface);
     transition: all 0.2s;
     flex-shrink: 0;
 }
@@ -115,23 +115,23 @@
 }
 
 .option-label:hover:not(.checkbox-option-label--disabled) .checkbox-custom {
-    border-color: #1890ff;
+    border-color: var(--color-accent);
 }
 
 .checkbox-option-label--checked .checkbox-custom {
-    border-color: #1890ff;
-    background-color: #1890ff;
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
 }
 
 .checkbox-option-label--disabled .checkbox-custom {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
     cursor: not-allowed;
 }
 
 .checkbox-option-label--checked.checkbox-option-label--disabled .checkbox-custom {
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
 }
 
 .checkbox-checkmark {
@@ -144,7 +144,7 @@
 }
 
 .checkbox-option-label--checked.checkbox-option-label--disabled .checkbox-checkmark {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 .checkbox-indeterminate {
@@ -155,7 +155,7 @@
 }
 
 .checkbox-option-label--disabled .checkbox-indeterminate {
-    background-color: #bfbfbf;
+    background-color: rgba(31, 36, 38, 0.4);
 }
 
 .checkbox-text {
@@ -166,37 +166,37 @@
 
 .checkbox-description {
     font-size: 12px;
-    color: #8c8c8c;
+    color: var(--color-muted);
     margin-top: 2px;
     font-weight: normal;
 }
 
 .checkbox-option-label--disabled .checkbox-description {
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 /* 焦点状态 */
 .checkbox-input:focus-visible + .checkbox-custom {
-    outline: 2px solid #1890ff;
+    outline: 2px solid rgba(31, 107, 110, 0.4);
     outline-offset: 2px;
 }
 
 .checkbox-group--focused .checkbox-custom {
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    box-shadow: 0 0 0 3px rgba(31, 107, 110, 0.18);
 }
 
 /* 错误状态 */
 .checkbox-group--error .checkbox-custom {
-    border-color: #ff4d4f;
+    border-color: var(--color-danger);
 }
 
 .checkbox-group--error .checkbox-group-label {
-    color: #ff4d4f;
+    color: var(--color-danger);
 }
 
 .checkbox-group-error {
     margin-top: 4px;
     font-size: 12px;
-    color: #ff4d4f;
+    color: var(--color-danger);
     line-height: 1.5;
 }

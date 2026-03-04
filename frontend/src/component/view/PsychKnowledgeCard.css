@@ -1,15 +1,15 @@
 .psych-knowledge-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
     padding: 20px;
     margin-bottom: 16px;
     transition: all 0.3s ease;
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--color-border);
 }
 
 .psych-knowledge-card:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 }
 
@@ -23,7 +23,7 @@
 .card-title {
     font-size: 18px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--color-text);
     margin: 0;
     flex: 1;
     line-height: 1.4;
@@ -39,27 +39,27 @@
 }
 
 .status-pending {
-    background-color: #fff7e6;
-    color: #fa8c16;
-    border: 1px solid #ffd591;
+    background-color: rgba(201, 130, 43, 0.15);
+    color: var(--color-warning);
+    border: 1px solid rgba(201, 130, 43, 0.35);
 }
 
 .status-passed {
-    background-color: #f6ffed;
-    color: #52c41a;
-    border: 1px solid #b7eb8f;
+    background-color: rgba(47, 138, 109, 0.14);
+    color: var(--color-success);
+    border: 1px solid rgba(47, 138, 109, 0.35);
 }
 
 .status-banned {
-    background-color: #fff2f0;
-    color: #ff4d4f;
-    border: 1px solid #ffccc7;
+    background-color: rgba(216, 76, 76, 0.15);
+    color: var(--color-danger);
+    border: 1px solid rgba(216, 76, 76, 0.35);
 }
 
 .status-revoked {
-    background-color: #f9f0ff;
-    color: #722ed1;
-    border: 1px solid #d3adf7;
+    background-color: rgba(31, 107, 110, 0.12);
+    color: var(--color-accent);
+    border: 1px solid rgba(31, 107, 110, 0.3);
 }
 
 .card-content {
@@ -70,7 +70,7 @@
     text-align: left;
     font-size: 14px;
     line-height: 1.6;
-    color: #595959;
+    color: var(--color-muted);
     margin: 0 0 12px 0;
     white-space: pre-wrap;
     word-break: break-word;
@@ -79,7 +79,7 @@
 .expand-btn {
     background: none;
     border: none;
-    color: #1890ff;
+    color: var(--color-accent);
     font-size: 14px;
     cursor: pointer;
     padding: 0;
@@ -87,7 +87,7 @@
 }
 
 .expand-btn:hover {
-    color: #40a9ff;
+    color: #2f8f8a;
 }
 
 .card-footer {
@@ -95,7 +95,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 12px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--color-border);
 }
 
 .publisher-info {
@@ -106,13 +106,13 @@
 
 .publisher-name {
     font-size: 14px;
-    color: #8c8c8c;
+    color: var(--color-muted);
     font-weight: 500;
 }
 
 .publish-time {
     font-size: 12px;
-    color: #bfbfbf;
+    color: rgba(31, 36, 38, 0.4);
 }
 
 .card-actions {
@@ -122,7 +122,7 @@
 
 .edit-btn {
     padding: 6px 12px;
-    background-color: #1890ff;
+    background-color: var(--color-accent);
     color: white;
     border: none;
     border-radius: 6px;
@@ -132,22 +132,22 @@
 }
 
 .edit-btn:hover {
-    background-color: #40a9ff;
+    background-color: #2f8f8a;
 }
 
 .review-info {
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px dashed #f0f0f0;
+    border-top: 1px dashed var(--color-border);
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: #8c8c8c;
+    color: var(--color-muted);
 }
 
 .reviewer, .review-time {
     font-size: 12px;
-    color: #8c8c8c;
+    color: var(--color-muted);
 }
 
 /* 响应式设计 */

@@ -40,7 +40,7 @@ export const PsychKnowledgeCard: React.FC<PsychKnowledgeCardProps> = ({
     const reportDialogRef = useRef<DialogRef>(null);
     const reportReasonTextareaRef = useRef<TextareaRef>(null);
     const [reportFormData, setReportFormData] = React.useState<PsychKnowledgeReportRequest>({
-        knowledgeId: data.knowledgeId, reportReason: "", reporterUsername: username
+        knowledgeId: data.knowledgeId, reportType: "内容违规", reportReason: "", reporterUsername: username
     });
     const reportResultDialogRef = useRef<DialogRef>(null);
     const reportHandlerRef = useRef<ResponseHandlerRef<PsychKnowledgeReportRequest, any>>(null);
@@ -188,6 +188,25 @@ export const PsychKnowledgeCard: React.FC<PsychKnowledgeCardProps> = ({
         >
             <div className="layout-flex-column">
                 <form onSubmit={handleReportSummit}>
+                    <label htmlFor={`knowledge-report-type-${data.knowledgeId}`} style={{fontWeight: 600, marginBottom: "8px"}}>举报类型</label>
+                    <select
+                        id={`knowledge-report-type-${data.knowledgeId}`}
+                        value={reportFormData.reportType}
+                        onChange={(event) => setReportFormData((prev) => ({...prev, reportType: event.target.value}))}
+                        style={{
+                            width: "100%",
+                            borderRadius: "8px",
+                            border: "1px solid #d9d9d9",
+                            padding: "8px 10px",
+                            marginBottom: "12px"
+                        }}
+                    >
+                        <option value="内容违规">内容违规</option>
+                        <option value="广告推广">广告推广</option>
+                        <option value="人身攻击">人身攻击</option>
+                        <option value="隐私泄露">隐私泄露</option>
+                        <option value="其他">其他</option>
+                    </select>
                     <Textarea
                         ref={reportReasonTextareaRef}
                         label="举报理由"
@@ -531,7 +550,7 @@ export const PsychKnowledgeCard: React.FC<PsychKnowledgeCardProps> = ({
                 <div className="card-header">
                     <h3 className="card-title">{data.title}</h3>
                     {mode === "mine"&&data.reviewStatus!==ReviewStatus.REVOKED&&Number(role)===UserRole.TEACHER&& <Button type="default" onClick={()=>{invokeConfirmDialogRef.current?.open()}}>撤回</Button>}
-                    {(mode === "audit"||mode==='audit_report')&&Number(role)===UserRole.ADMIN&&
+                    {(mode === "audit"||mode==='audit_report')&&UserRole.isAdminRole(role)&&
                         <>
                             <Button type="default" onClick={()=>{passConfirmDialogRef.current?.open();}}>通过</Button>
                             <span> </span>
@@ -583,7 +602,7 @@ export const PsychKnowledgeCard: React.FC<PsychKnowledgeCardProps> = ({
                         )}
                     </div>
                 )}
-                {mode === "audit_report"&&Number(role)===UserRole.ADMIN&&reportList}
+                {mode === "audit_report"&&UserRole.isAdminRole(role)&&reportList}
             </div>
         </>
     );

@@ -3,12 +3,12 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border: 1px solid #d9d9d9;
-    border-radius: 6px;
-    background-color: #fff;
-    color: #333;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.5715;
     text-align: center;
     cursor: pointer;
@@ -18,11 +18,11 @@
     outline: none;
     position: relative;
     white-space: nowrap;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+    box-shadow: 0 2px 0 rgba(20, 26, 29, 0.05);
 }
 
 .button:focus-visible {
-    outline: 2px solid #40a9ff;
+    outline: 2px solid rgba(31, 107, 110, 0.45);
     outline-offset: 2px;
 }
 
@@ -65,118 +65,120 @@
 
 /* 按钮类型 */
 .button-primary {
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
 }
 
 .button-primary:hover:not(.button-disabled):not(.button-loading) {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #2f8f8a;
+    border-color: #2f8f8a;
 }
 
 .button-primary:active:not(.button-disabled):not(.button-loading) {
-    background-color: #096dd9;
-    border-color: #096dd9;
+    background-color: #195b5e;
+    border-color: #195b5e;
 }
 
 .button-default {
-    background-color: #fff;
-    border-color: #d9d9d9;
-    color: #333;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
 }
 
 .button-default:hover:not(.button-disabled):not(.button-loading) {
-    color: #1890ff;
-    border-color: #1890ff;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-3);
 }
 
 .button-default:active:not(.button-disabled):not(.button-loading) {
-    color: #096dd9;
-    border-color: #096dd9;
+    color: #195b5e;
+    border-color: #195b5e;
 }
 
 .button-dashed {
     border-style: dashed;
-    background-color: #fff;
-    border-color: #d9d9d9;
-    color: #333;
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
 }
 
 .button-dashed:hover:not(.button-disabled):not(.button-loading) {
-    color: #1890ff;
-    border-color: #1890ff;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-3);
 }
 
 .button-dashed:active:not(.button-disabled):not(.button-loading) {
-    color: #096dd9;
-    border-color: #096dd9;
+    color: #195b5e;
+    border-color: #195b5e;
 }
 
 .button-text {
     border: none;
     background-color: transparent;
-    color: #333;
+    color: var(--color-text);
     box-shadow: none;
 }
 
 .button-text:hover:not(.button-disabled):not(.button-loading) {
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: rgba(31, 107, 110, 0.12);
 }
 
 .button-text:active:not(.button-disabled):not(.button-loading) {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(31, 107, 110, 0.2);
 }
 
 .button-link {
     border: none;
     background-color: transparent;
-    color: #1890ff;
+    color: var(--color-accent);
     box-shadow: none;
     text-decoration: none;
 }
 
 .button-link:hover:not(.button-disabled):not(.button-loading) {
-    color: #40a9ff;
+    color: #2f8f8a;
     text-decoration: underline;
 }
 
 .button-link:active:not(.button-disabled):not(.button-loading) {
-    color: #096dd9;
+    color: #195b5e;
 }
 
 /* 危险按钮 */
 .button-danger {
-    background-color: #ff4d4f;
-    border-color: #ff4d4f;
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
     color: #fff;
 }
 
 .button-danger:hover:not(.button-disabled):not(.button-loading) {
-    background-color: #ff7875;
-    border-color: #ff7875;
+    background-color: #e76868;
+    border-color: #e76868;
 }
 
 .button-danger:active:not(.button-disabled):not(.button-loading) {
-    background-color: #d9363e;
-    border-color: #d9363e;
+    background-color: #b94242;
+    border-color: #b94242;
 }
 
 .button-default.button-danger {
-    background-color: #fff;
-    color: #ff4d4f;
-    border-color: #ff4d4f;
+    background-color: var(--color-surface);
+    color: var(--color-danger);
+    border-color: var(--color-danger);
 }
 
 .button-default.button-danger:hover:not(.button-disabled):not(.button-loading) {
-    color: #ff7875;
-    border-color: #ff7875;
-    background-color: #fff;
+    color: #e76868;
+    border-color: #e76868;
+    background-color: var(--color-surface);
 }
 
 .button-default.button-danger:active:not(.button-disabled):not(.button-loading) {
-    color: #d9363e;
-    border-color: #d9363e;
+    color: #b94242;
+    border-color: #b94242;
 }
 
 /* 幽灵按钮 */
@@ -187,8 +189,8 @@
 }
 
 .button-ghost:hover:not(.button-disabled):not(.button-loading) {
-    color: #40a9ff;
-    border-color: #40a9ff;
+    color: var(--color-accent-2);
+    border-color: var(--color-accent-2);
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -207,9 +209,9 @@
 .button-disabled,
 .button-disabled:hover,
 .button-disabled:active {
-    color: rgba(0, 0, 0, 0.25);
-    background-color: #f5f5f5;
-    border-color: #d9d9d9;
+    color: rgba(31, 36, 38, 0.4);
+    background-color: var(--color-surface-2);
+    border-color: var(--color-border);
     text-shadow: none;
     box-shadow: none;
 }
